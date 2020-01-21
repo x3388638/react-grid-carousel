@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --config example/webpack.config.js",
     "build": "webpack",
     "prettier:check": "prettier --check ./**/*.{js,json,css} && echo \"✅ Prettier validated\"",
     "prettier:write": "prettier --write ./**/*.{js,json,css}",
@@ -29,7 +30,8 @@
     "lint-staged": "^10.0.1",
     "prettier": "^1.19.1",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   },
   "lint-staged": {
     "*.{js,json,css}": [
@@ -38,5 +40,10 @@
     "*.js": [
       "npm run lint"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
