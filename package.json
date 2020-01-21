@@ -1,0 +1,42 @@
+{
+  "name": "react-grid-carousel",
+  "version": "0.1.0",
+  "description": "react-grid-carousel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "prettier:check": "prettier --check ./**/*.{js,json,css} && echo \"✅ Prettier validated\"",
+    "prettier:write": "prettier --write ./**/*.{js,json,css}",
+    "lint": "eslint './**/*.js'",
+    "lint:fix": "eslint './**/*.js' --fix"
+  },
+  "author": "Y.Y.",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-minify": "^0.5.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.0",
+    "husky": "^4.0.10",
+    "lint-staged": "^10.0.1",
+    "prettier": "^1.19.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "lint-staged": {
+    "*.{js,json,css}": [
+      "npm run prettier:check"
+    ],
+    "*.js": [
+      "npm run lint"
+    ]
+  }
+}
