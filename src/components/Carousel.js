@@ -35,11 +35,25 @@ const NextBtn = styled.span`
         ? 'translate(-25%, -50%) rotate(-135deg)'
         : 'translate(-75%, -50%) rotate(45deg)'};
   }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 
 const RailWrapper = styled.div`
   overflow: hidden;
   margin: 0 20px;
+
+  @media screen and (max-width: 768px) {
+    overflow-x: auto;
+    margin: 0;
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `
 
 const Rail = styled.div`
@@ -50,6 +64,12 @@ const Rail = styled.div`
   grid-template-columns: ${({ page }) => `repeat(${page}, 100%)`};
   left: ${({ currentPage }) =>
     `calc(${-100 * currentPage}% - ${10 * currentPage}px)`};
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
+    grid-column-gap: ${({ cols, rows, gap }) =>
+      `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
+  }
 `
 
 const ItemSet = styled.div`
@@ -57,10 +77,25 @@ const ItemSet = styled.div`
   grid-template-columns: ${({ cols }) => `repeat(${cols}, auto)`};
   grid-template-rows: ${({ rows }) => `repeat(${rows}, auto)`};
   grid-gap: ${({ gap }) => `${gap}px`};
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: ${({ cols, rows }) =>
+      `repeat(${cols * rows}, 100%)`};
+    grid-template-rows: 1fr;
+  }
 `
 
 const Item = ({ children }) => {
-  return <div className="itemllalala">{children}</div>
+  return (
+    <div
+      css={`
+        scroll-snap-align: center;
+      `}
+      className="itemllalala"
+    >
+      {children}
+    </div>
+  )
 }
 
 const CAROUSEL_ITEM = 'CAROUSEL_ITEM'
@@ -95,7 +130,13 @@ const Carousel = ({ cols = 1, rows = 1, gap = 10, children }) => {
     <Container>
       <NextBtn type="prev" hidden={currentPage <= 0} onClick={handlePrev} />
       <RailWrapper>
-        <Rail page={page} currentPage={currentPage}>
+        <Rail
+          cols={cols}
+          rows={rows}
+          page={page}
+          gap={gap}
+          currentPage={currentPage}
+        >
           {itemSetList.map((set, i) => {
             return (
               <ItemSet key={i} cols={cols} rows={rows} gap={gap}>
