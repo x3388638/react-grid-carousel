@@ -2,10 +2,10 @@
   "name": "react-grid-carousel",
   "version": "0.1.0",
   "description": "react-grid-carousel",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config example/webpack.config.js",
+    "dev": "npm run build && webpack-dev-server --config example/webpack.config.js",
     "build": "webpack",
     "prettier:check": "prettier --check ./**/*.{js,json,css} && echo \"✅ Prettier validated\"",
     "prettier:write": "prettier --write ./**/*.{js,json,css}",

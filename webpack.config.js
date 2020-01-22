@@ -5,7 +5,8 @@ module.exports = {
   entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
@@ -15,7 +16,6 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', 'minify'],
             comments: false
           }
         }
