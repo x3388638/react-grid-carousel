@@ -4,7 +4,6 @@
   "description": "react-grid-carousel",
   "main": "dist/bundle.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm run build && webpack-dev-server --config examples/webpack.config.js",
     "build": "rollup -c",
     "prettier:check": "prettier --check ./**/*.{js,json,css} && echo \"✅ Prettier validated\"",

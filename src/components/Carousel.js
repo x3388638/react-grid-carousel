@@ -7,23 +7,39 @@ const Container = styled.div`
 
 const NextBtn = styled.span`
   position: absolute;
-  top: calc(50% - 6px);
-  height: 10px;
-  width: 10px;
-  background: transparent;
-  border-top: 2px solid #000;
-  border-right: 2px solid #000;
+  top: calc(50% - 17.5px);
+  height: 35px;
+  width: 35px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 0px #0009;
   z-index: 10;
   cursor: pointer;
   font-size: 10px;
-  left: ${({ type }) => (type === 'prev' ? '-15px' : 'initial')};
-  right: ${({ type }) => (type === 'next' ? '15px' : 'initial')};
-  transform: ${({ type }) =>
-    type === 'prev' ? 'rotate(-135deg)' : 'rotate(45deg)'};
+  left: ${({ type }) => (type === 'prev' ? '5px' : 'initial')};
+  right: ${({ type }) => (type === 'next' ? '5px' : 'initial')};
+
+  &::before {
+    content: '';
+    height: 10px;
+    width: 10px;
+    background: transparent;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: ${({ type }) =>
+      type === 'prev'
+        ? 'translate(-25%, -50%) rotate(-135deg)'
+        : 'translate(-75%, -50%) rotate(45deg)'};
+  }
 `
 
 const RailWrapper = styled.div`
   overflow: hidden;
+  margin: 0 20px;
 `
 
 const Rail = styled.div`
@@ -37,7 +53,7 @@ const Rail = styled.div`
 `
 
 const ItemSet = styled.div`
-  display: 'grid';
+  display: grid;
   grid-template-columns: ${({ cols }) => `repeat(${cols}, auto)`};
   grid-template-rows: ${({ rows }) => `repeat(${rows}, auto)`};
   grid-gap: ${({ gap }) => `${gap}px`};
