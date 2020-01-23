@@ -49,6 +49,7 @@ const RailWrapper = styled.div`
     overflow-x: auto;
     margin: 0;
     scroll-snap-type: x mandatory;
+    scrollbar-width: none;
 
     &::-webkit-scrollbar {
       display: none;
@@ -74,8 +75,8 @@ const Rail = styled.div`
 
 const ItemSet = styled.div`
   display: grid;
-  grid-template-columns: ${({ cols }) => `repeat(${cols}, auto)`};
-  grid-template-rows: ${({ rows }) => `repeat(${rows}, auto)`};
+  grid-template-columns: ${({ cols }) => `repeat(${cols}, 1fr)`};
+  grid-template-rows: ${({ rows }) => `repeat(${rows}, 1fr)`};
   grid-gap: ${({ gap }) => `${gap}px`};
 
   @media screen and (max-width: 768px) {

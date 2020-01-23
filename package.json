@@ -9,7 +9,9 @@
     "prettier:check": "prettier --check ./**/*.{js,json,css} && echo \"✅ Prettier validated\"",
     "prettier:write": "prettier --write ./**/*.{js,json,css}",
     "lint": "eslint './**/*.js'",
-    "lint:fix": "eslint './**/*.js' --fix"
+    "lint:fix": "eslint './**/*.js' --fix",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "author": "Y.Y.",
   "license": "MIT",
@@ -22,6 +24,12 @@
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
+    "@storybook/addon-actions": "^5.3.8",
+    "@storybook/addon-knobs": "^5.3.8",
+    "@storybook/addon-links": "^5.3.8",
+    "@storybook/addon-viewport": "^5.3.8",
+    "@storybook/addons": "^5.3.8",
+    "@storybook/react": "^5.3.8",
     "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.6",
     "eslint": "^6.8.0",
