@@ -100,7 +100,7 @@ const Item = ({ children }) => {
 }
 
 const CAROUSEL_ITEM = 'CAROUSEL_ITEM'
-const Carousel = ({ cols = 1, rows = 1, gap = 10, children }) => {
+const Carousel = ({ cols = 1, rows = 1, gap = 10, loop = false, children }) => {
   const [currentPage, setCurrentPage] = useState(0)
   const itemList = React.Children.toArray(children).filter(
     child => child.type.displayName === CAROUSEL_ITEM
@@ -120,16 +120,34 @@ const Carousel = ({ cols = 1, rows = 1, gap = 10, children }) => {
   const page = Math.ceil(itemList.length / itemAmountPerSet)
 
   const handlePrev = useCallback(() => {
-    setCurrentPage(p => p - 1)
-  }, [])
+    setCurrentPage(p => {
+      const prevPage = p - 1
+      if (loop && prevPage < 0) {
+        return page - 1
+      }
+
+      return prevPage
+    })
+  }, [loop, page])
 
   const handleNext = useCallback(() => {
-    setCurrentPage(p => p + 1)
-  }, [])
+    setCurrentPage(p => {
+      const nextPage = p + 1
+      if (loop && nextPage >= page) {
+        return 0
+      }
+
+      return nextPage
+    })
+  }, [loop, page])
 
   return (
     <Container>
-      <NextBtn type="prev" hidden={currentPage <= 0} onClick={handlePrev} />
+      <NextBtn
+        type="prev"
+        hidden={!loop && currentPage <= 0}
+        onClick={handlePrev}
+      />
       <RailWrapper>
         <Rail
           cols={cols}
@@ -149,7 +167,7 @@ const Carousel = ({ cols = 1, rows = 1, gap = 10, children }) => {
       </RailWrapper>
       <NextBtn
         type="next"
-        hidden={currentPage === page - 1}
+        hidden={!loop && currentPage === page - 1}
         onClick={handleNext}
       />
     </Container>

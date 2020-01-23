@@ -1,7 +1,7 @@
 import React from 'react'
 import Carousel from '../src/components/Carousel'
 import styled from 'styled-components'
-import { withKnobs, number } from '@storybook/addon-knobs'
+import { withKnobs, number, boolean } from '@storybook/addon-knobs'
 
 const randomImageUrl = 'https://picsum.photos/800/600?random='
 
@@ -197,8 +197,10 @@ export const CustomProps = () => {
     range: true
   })
 
+  const loop = boolean('loop', false)
+
   return (
-    <Carousel cols={cols} rows={rows} gap={gap}>
+    <Carousel cols={cols} rows={rows} gap={gap} loop={loop}>
       {[...Array(cols * rows * pages)].map((_, i) => (
         <Carousel.Item key={i}>
           <Item img={randomImageUrl + i} />
