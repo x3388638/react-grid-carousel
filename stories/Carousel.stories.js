@@ -199,8 +199,16 @@ export const CustomProps = () => {
 
   const loop = boolean('loop', false)
 
+  const scrollSnap = boolean('scrollSnap', true)
+
   return (
-    <Carousel cols={cols} rows={rows} gap={gap} loop={loop}>
+    <Carousel
+      cols={cols}
+      rows={rows}
+      gap={gap}
+      loop={loop}
+      scrollSnap={scrollSnap}
+    >
       {[...Array(cols * rows * pages)].map((_, i) => (
         <Carousel.Item key={i}>
           <Item img={randomImageUrl + i} />

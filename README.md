@@ -9,6 +9,8 @@
 - Multi rows per page
 - Infinite loop
 - Support any component as a item to put into grid
+- Show/hide dots (WIP)
+- Auto play (WIP)
 - `scroll-snap` for each item on mobile device
 
 ## Install
@@ -18,6 +20,9 @@ $ npm install react-grid-carousel --save
 ```
 
 ## Usage
+
+Just import the `Carousel` component from `react-grid-carousel`  
+and put your item into `Carousel.Item`
 
 ```javascript
 import React from 'react'
@@ -46,14 +51,15 @@ const Gallery = () => {
 
 ## Props
 
-| Prop               | Type    | Default | Description                                   |
-| ------------------ | ------- | ------- | --------------------------------------------- |
-| cols               | Number  | 1       | Column amount rendered per page               |
-| rows               | Number  | 1       | Row amount rendered per page                  |
-| gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px) |
-| loop               | Boolean | false   | Infinite loop or not                          |
-| containerClassName | String  |         | Classname for carousel container              |
-| containerStyle     | Object  |         | Style object for carousel container           |
+| Prop               | Type    | Default | Description                                          |
+| ------------------ | ------- | ------- | ---------------------------------------------------- |
+| cols               | Number  | 1       | Column amount rendered per page                      |
+| rows               | Number  | 1       | Row amount rendered per page                         |
+| gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px)        |
+| loop               | Boolean | false   | Infinite loop or not                                 |
+| scrollSnap         | Boolean | true    | `true` for applying `scroll-snap` to items on mobile |
+| containerClassName | String  |         | Classname for carousel container                     |
+| containerStyle     | Object  |         | Style object for carousel container                  |
 
 ## Examples
 
@@ -68,7 +74,7 @@ $ npm run storybook
 
 In actual life
 
-```
+```bash
 # clone & install packages
 $ npm run dev
 # open localhost:8080

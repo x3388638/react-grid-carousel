@@ -49,7 +49,7 @@ const RailWrapper = styled.div`
   @media screen and (max-width: 768px) {
     overflow-x: auto;
     margin: 0;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: ${({ scrollSnap }) => (scrollSnap ? 'x mandatory' : '')};
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
@@ -87,13 +87,12 @@ const ItemSet = styled.div`
   }
 `
 
-const Item = ({ children }) => {
+const Item = ({ scrollSnap, children }) => {
   return (
     <div
       css={`
-        scroll-snap-align: center;
+        scroll-snap-align: ${scrollSnap ? 'center' : ''};
       `}
-      className="itemllalala"
     >
       {children}
     </div>
@@ -106,6 +105,7 @@ const Carousel = ({
   rows = 1,
   gap = 10,
   loop = false,
+  scrollSnap = true,
   containerClassName = '',
   containerStyle = {},
   children
@@ -117,10 +117,16 @@ const Carousel = ({
 
   const itemAmountPerSet = cols * rows
   const itemSetList = itemList.reduce((result, item, i) => {
+    const itemComponent = (
+      <Item key={i} scrollSnap={scrollSnap}>
+        {item}
+      </Item>
+    )
+
     if (i % itemAmountPerSet === 0) {
-      result.push([<Item key={i}>{item}</Item>])
+      result.push([itemComponent])
     } else {
-      result[result.length - 1].push(<Item key={i}>{item}</Item>)
+      result[result.length - 1].push(itemComponent)
     }
 
     return result
@@ -157,7 +163,7 @@ const Carousel = ({
         hidden={!loop && currentPage <= 0}
         onClick={handlePrev}
       />
-      <RailWrapper>
+      <RailWrapper scrollSnap={scrollSnap}>
         <Rail
           cols={cols}
           rows={rows}
@@ -188,6 +194,7 @@ Carousel.propTypes = {
   rows: PropTypes.number,
   gap: PropTypes.number,
   loop: PropTypes.bool,
+  scrollSnap: PropTypes.bool,
   containerClassName: PropTypes.string,
   containerStyle: PropTypes.object
 }
