@@ -44,7 +44,7 @@ const NextBtn = styled.span`
 
 const RailWrapper = styled.div`
   overflow: hidden;
-  margin: 0 20px;
+  margin: ${({ showDots }) => (showDots ? '0 20px 15px 20px' : '0 20px')};
 
   @media screen and (max-width: 768px) {
     overflow-x: auto;
@@ -87,6 +87,28 @@ const ItemSet = styled.div`
   }
 `
 
+const DotContainer = styled.div`
+  position: absolute;
+  bottom: -12px;
+  height: 10px;
+  width: 100%;
+  line-height: 10px;
+  text-align: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`
+
+const Dot = styled.div`
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 5px;
+  background: ${({ color }) => color};
+`
+
 const Item = ({ scrollSnap, children }) => {
   return (
     <div
@@ -106,6 +128,9 @@ const Carousel = ({
   gap = 10,
   loop = false,
   scrollSnap = true,
+  showDots = false,
+  dotColorActive = '#795548',
+  dotColorInactive = '#ccc',
   containerClassName = '',
   containerStyle = {},
   children
@@ -163,7 +188,7 @@ const Carousel = ({
         hidden={!loop && currentPage <= 0}
         onClick={handlePrev}
       />
-      <RailWrapper scrollSnap={scrollSnap}>
+      <RailWrapper scrollSnap={scrollSnap} showDots={showDots}>
         <Rail
           cols={cols}
           rows={rows}
@@ -180,6 +205,16 @@ const Carousel = ({
           })}
         </Rail>
       </RailWrapper>
+      {showDots && (
+        <DotContainer>
+          {[...Array(page)].map((_, i) => (
+            <Dot
+              key={i}
+              color={i === currentPage ? dotColorActive : dotColorInactive}
+            />
+          ))}
+        </DotContainer>
+      )}
       <NextBtn
         type="next"
         hidden={!loop && currentPage === page - 1}
@@ -195,6 +230,9 @@ Carousel.propTypes = {
   gap: PropTypes.number,
   loop: PropTypes.bool,
   scrollSnap: PropTypes.bool,
+  showDots: PropTypes.bool,
+  dotColorActive: PropTypes.string,
+  dotColorInactive: PropTypes.string,
   containerClassName: PropTypes.string,
   containerStyle: PropTypes.object
 }

@@ -9,9 +9,9 @@
 - Multi rows per page
 - Infinite loop
 - Support any component as a item to put into grid
-- Show/hide dots (WIP)
+- Show/hide dots
 - Auto play (WIP)
-- `scroll-snap` for each item on mobile device
+- Enable/Disable `scroll-snap` for each item on mobile device
 
 ## Install
 
@@ -58,6 +58,9 @@ const Gallery = () => {
 | gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px)        |
 | loop               | Boolean | false   | Infinite loop or not                                 |
 | scrollSnap         | Boolean | true    | `true` for applying `scroll-snap` to items on mobile |
+| showDots           | Boolean | false   | Show dots indicate the current page on desktop mode  |
+| dotColorActive     | String  | #795548 | Valid css color value for active dot                 |
+| dotColorInactive   | String  | #ccc    | Valid css color value for inactive dot               |
 | containerClassName | String  |         | Classname for carousel container                     |
 | containerStyle     | Object  |         | Style object for carousel container                  |
 
@@ -83,7 +86,6 @@ $ npm run dev
 ## TODOs
 
 - [ ] autoplay
-- [ ] dots
 
 ## Licence
 

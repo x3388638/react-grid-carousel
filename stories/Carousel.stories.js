@@ -50,6 +50,18 @@ export const MultiRows = () => {
   )
 }
 
+export const WithDots = () => {
+  return (
+    <Carousel cols={3} rows={1} showDots>
+      {[...Array(9)].map((_, i) => (
+        <Carousel.Item key={i}>
+          <Item img={randomImageUrl + i} />
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  )
+}
+
 const Card = styled.div`
   cursor: pointer;
   padding: 5px;

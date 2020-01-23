@@ -113,7 +113,7 @@ const App = () => {
       <Row>
         <RowHead>每日好康</RowHead>
         <CarouselContainer>
-          <Carousel cols={5}>
+          <Carousel cols={5} showDots loop>
             {products.map((val, i) => (
               <Carousel.Item key={i}>
                 <Card>
@@ -131,7 +131,7 @@ const App = () => {
         </CarouselContainer>
       </Row>
       <Code>
-        {`<Carousel cols={5}>
+        {`<Carousel cols={5} showDots loop>
   {products.map((val, i) => (
     <Carousel.Item key={i}>
       <Card>
