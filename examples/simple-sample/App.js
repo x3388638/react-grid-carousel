@@ -21,8 +21,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Example-1</h1>
-      Render images in grids
+      <h1>Simple sample</h1>
       <div>
         Cols:{' '}
         <input
@@ -31,7 +30,7 @@ const App = () => {
           max="20"
           value={cols}
           onChange={e => {
-            setCols(e.target.value)
+            setCols(+e.target.value)
           }}
         />{' '}
         {cols}
@@ -44,7 +43,7 @@ const App = () => {
           max="3"
           value={rows}
           onChange={e => {
-            setRows(e.target.value)
+            setRows(+e.target.value)
           }}
         />{' '}
         {rows}
@@ -57,7 +56,7 @@ const App = () => {
           max="4"
           value={pages}
           onChange={e => {
-            setPages(e.target.value)
+            setPages(+e.target.value)
           }}
         />{' '}
         {pages}
@@ -70,7 +69,7 @@ const App = () => {
           max="20"
           value={gap}
           onChange={e => {
-            setGap(e.target.value)
+            setGap(+e.target.value)
           }}
         />{' '}
         {gap}

@@ -101,7 +101,15 @@ const Item = ({ children }) => {
 }
 
 const CAROUSEL_ITEM = 'CAROUSEL_ITEM'
-const Carousel = ({ cols = 1, rows = 1, gap = 10, loop = false, children }) => {
+const Carousel = ({
+  cols = 1,
+  rows = 1,
+  gap = 10,
+  loop = false,
+  containerClassName = '',
+  containerStyle = {},
+  children
+}) => {
   const [currentPage, setCurrentPage] = useState(0)
   const itemList = React.Children.toArray(children).filter(
     child => child.type.displayName === CAROUSEL_ITEM
@@ -143,7 +151,7 @@ const Carousel = ({ cols = 1, rows = 1, gap = 10, loop = false, children }) => {
   }, [loop, page])
 
   return (
-    <Container>
+    <Container className={containerClassName} style={containerStyle}>
       <NextBtn
         type="prev"
         hidden={!loop && currentPage <= 0}
@@ -179,7 +187,9 @@ Carousel.propTypes = {
   cols: PropTypes.number,
   rows: PropTypes.number,
   gap: PropTypes.number,
-  loop: PropTypes.bool
+  loop: PropTypes.bool,
+  containerClassName: PropTypes.string,
+  containerStyle: PropTypes.object
 }
 
 Carousel.Item = ({ children }) => children

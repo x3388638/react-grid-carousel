@@ -46,16 +46,18 @@ const Gallery = () => {
 
 ## Props
 
-| Prop | Type    | Default | Description                                   |
-| ---- | ------- | ------- | --------------------------------------------- |
-| cols | Number  | 1       | Column amount rendered per page               |
-| rows | Number  | 1       | Row amount rendered per page                  |
-| gap  | Number  | 10      | Margin (grid-gap) between each item/grid (px) |
-| loop | Boolean | false   | Infinite loop or not                          |
+| Prop               | Type    | Default | Description                                   |
+| ------------------ | ------- | ------- | --------------------------------------------- |
+| cols               | Number  | 1       | Column amount rendered per page               |
+| rows               | Number  | 1       | Row amount rendered per page                  |
+| gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px) |
+| loop               | Boolean | false   | Infinite loop or not                          |
+| containerClassName | String  |         | Classname for carousel container              |
+| containerStyle     | Object  |         | Style object for carousel container           |
 
 ## Examples
 
-Storybook
+Storybook (Don't forget to try on different viewport size)
 
 ```bash
 $ git clone https://github.com/x3388638/react-grid-carousel
@@ -67,9 +69,15 @@ $ npm run storybook
 In actual life
 
 ```
+# clone & install packages
 $ npm run dev
 # open localhost:8080
 ```
+
+## TODOs
+
+- [ ] autoplay
+- [ ] dots
 
 ## Licence
 
