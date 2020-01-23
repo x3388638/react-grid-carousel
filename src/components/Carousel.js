@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -172,6 +173,13 @@ const Carousel = ({ cols = 1, rows = 1, gap = 10, loop = false, children }) => {
       />
     </Container>
   )
+}
+
+Carousel.propTypes = {
+  cols: PropTypes.number,
+  rows: PropTypes.number,
+  gap: PropTypes.number,
+  loop: PropTypes.bool
 }
 
 Carousel.Item = ({ children }) => children

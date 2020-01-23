@@ -125,7 +125,7 @@ const NewsItem = styled.div`
       display: inline-block;
       width: 100%;
       box-sizing: border-box;
-      background: linear-gradient(0deg, #00000085, transparent);
+      background: linear-gradient(0deg, #000, transparent);
       margin-top: 12px;
       color: #fff;
       font-weight: bold;
@@ -216,7 +216,15 @@ export default {
   decorators: [
     withKnobs,
     story => (
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>{story()}</div>
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        {story()}
+        <span style={{ position: 'absolute', bottom: '0', right: '0' }}>
+          Photo by{' '}
+          <a href="https://picsum.photos/" rel="noreferrer noopener">
+            https://picsum.photos/
+          </a>
+        </span>
+      </div>
     )
   ]
 }
