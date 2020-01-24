@@ -74,6 +74,7 @@ const Rail = styled.div`
     `calc(${-100 * currentPage}% - ${10 * currentPage}px)`};
 
   @media screen and (max-width: 768px) {
+    padding-left: ${({ gap }) => `${gap}px`};
     grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
     grid-column-gap: ${({ cols, rows, gap }) =>
       `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
@@ -90,6 +91,10 @@ const ItemSet = styled.div`
     grid-template-columns: ${({ cols, rows }) =>
       `repeat(${cols * rows}, 100%)`};
     grid-template-rows: 1fr;
+
+    &:last-of-type > ${Item}:last-of-type {
+      padding-right: ${({ gap }) => `${gap}px`};
+    }
   }
 `
 

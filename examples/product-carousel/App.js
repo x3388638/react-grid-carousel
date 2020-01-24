@@ -109,7 +109,17 @@ const Reference = styled.div`
 const App = () => {
   return (
     <Body>
-      <h2 align="center">Use react-grid-carousel</h2>
+      <h2 align="center">
+        Use{' '}
+        <span
+          css={`
+            background: lightgray;
+          `}
+        >
+          &nbsp;react-grid-carousel&nbsp;
+        </span>{' '}
+        to build product carousel
+      </h2>
       <Row>
         <RowHead>每日好康</RowHead>
         <CarouselContainer>
@@ -155,7 +165,7 @@ const App = () => {
             target="_blank"
             rel="noreferrer noopener"
           >
-            https://tw.buy.yahoo.com/
+            tw.buy.yahoo.com
           </a>
         </h2>
 
