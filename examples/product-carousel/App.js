@@ -22,7 +22,7 @@ const Row = styled.div`
   border-radius: 8px;
   background: #fff;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     margin: 10px;
   }
 `
@@ -57,7 +57,7 @@ const Card = styled.div`
     margin-left: 10px;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     background: #f3f3f3;
     border: 1px solid #f3f3f3;
   }

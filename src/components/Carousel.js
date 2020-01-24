@@ -43,7 +43,7 @@ const NextBtn = styled.span`
         : 'translate(-75%, -50%) rotate(45deg)'};
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `
@@ -52,7 +52,7 @@ const RailWrapper = styled.div`
   overflow: hidden;
   margin: ${({ showDots }) => (showDots ? '0 20px 15px 20px' : '0 20px')};
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     overflow-x: auto;
     margin: 0;
     scroll-snap-type: ${({ scrollSnap }) => (scrollSnap ? 'x mandatory' : '')};
@@ -73,7 +73,7 @@ const Rail = styled.div`
   left: ${({ currentPage }) =>
     `calc(${-100 * currentPage}% - ${10 * currentPage}px)`};
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     padding-left: ${({ gap }) => `${gap}px`};
     grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
     grid-column-gap: ${({ cols, rows, gap }) =>
@@ -87,7 +87,7 @@ const ItemSet = styled.div`
   grid-template-rows: ${({ rows }) => `repeat(${rows}, 1fr)`};
   grid-gap: ${({ gap }) => `${gap}px`};
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     grid-template-columns: ${({ cols, rows }) =>
       `repeat(${cols * rows}, 100%)`};
     grid-template-rows: 1fr;
@@ -106,7 +106,7 @@ const DotContainer = styled.div`
   line-height: 10px;
   text-align: center;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `
