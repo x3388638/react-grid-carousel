@@ -5,11 +5,12 @@
 
 ## Feature
 
-- Multi items per page
-- Multi rows per page
+- Multiple items
+- Multiple rows
 - Infinite loop
 - Support any component as a item to put into grid
 - Show/hide dots
+- Show/hide arrow buttons
 - Auto play (WIP)
 - Enable/Disable `scroll-snap` for each item on mobile device
 
@@ -58,6 +59,7 @@ const Gallery = () => {
 | gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px)        |
 | loop               | Boolean | false   | Infinite loop or not                                 |
 | scrollSnap         | Boolean | true    | `true` for applying `scroll-snap` to items on mobile |
+| hideArrow          | Boolean | false   | Show/hide the arrow prev/next buttons                |
 | showDots           | Boolean | false   | Show dots indicate the current page on desktop mode  |
 | dotColorActive     | String  | #795548 | Valid css color value for active dot                 |
 | dotColorInactive   | String  | #ccc    | Valid css color value for inactive dot               |

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Carousel from 'react-grid-carousel'
+import Carousel from '../../dist/bundle'
 import styled from 'styled-components'
 
 const randomImageUrl = 'https://picsum.photos/800/600?random='

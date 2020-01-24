@@ -17,8 +17,14 @@ const NextBtn = styled.span`
   z-index: 10;
   cursor: pointer;
   font-size: 10px;
+  opacity: 0.6;
+  transition: opacity 0.25s;
   left: ${({ type }) => (type === 'prev' ? '5px' : 'initial')};
   right: ${({ type }) => (type === 'next' ? '5px' : 'initial')};
+
+  &:hover {
+    opacity: 1;
+  }
 
   &::before {
     content: '';
@@ -128,6 +134,7 @@ const Carousel = ({
   gap = 10,
   loop = false,
   scrollSnap = true,
+  hideArrow = false,
   showDots = false,
   dotColorActive = '#795548',
   dotColorInactive = '#ccc',
@@ -185,7 +192,7 @@ const Carousel = ({
     <Container className={containerClassName} style={containerStyle}>
       <NextBtn
         type="prev"
-        hidden={!loop && currentPage <= 0}
+        hidden={hideArrow || (!loop && currentPage <= 0)}
         onClick={handlePrev}
       />
       <RailWrapper scrollSnap={scrollSnap} showDots={showDots}>
@@ -217,7 +224,7 @@ const Carousel = ({
       )}
       <NextBtn
         type="next"
-        hidden={!loop && currentPage === page - 1}
+        hidden={hideArrow || (!loop && currentPage === page - 1)}
         onClick={handleNext}
       />
     </Container>
@@ -230,6 +237,7 @@ Carousel.propTypes = {
   gap: PropTypes.number,
   loop: PropTypes.bool,
   scrollSnap: PropTypes.bool,
+  hideArrow: PropTypes.bool,
   showDots: PropTypes.bool,
   dotColorActive: PropTypes.string,
   dotColorInactive: PropTypes.string,

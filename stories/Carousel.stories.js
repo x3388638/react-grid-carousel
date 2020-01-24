@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import Carousel from '../src/components/Carousel'
 import styled from 'styled-components'
 import { withKnobs, number, boolean } from '@storybook/addon-knobs'
@@ -59,6 +59,26 @@ export const WithDots = () => {
         </Carousel.Item>
       ))}
     </Carousel>
+  )
+}
+
+export const ShowArrowOnHover = () => {
+  const [showArrow, setShowArrow] = useState(false)
+
+  const handleHover = useCallback(() => {
+    setShowArrow(show => !show)
+  }, [])
+
+  return (
+    <div onMouseEnter={handleHover} onMouseLeave={handleHover}>
+      <Carousel cols={2} rows={1} loop hideArrow={!showArrow}>
+        {[...Array(6)].map((_, i) => (
+          <Carousel.Item key={i}>
+            <Item img={randomImageUrl + i} />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
   )
 }
 
