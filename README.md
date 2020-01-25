@@ -95,6 +95,6 @@ $ npm run dev
 
 or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
 
-## Licence
+## LICENSE
 
 MIT
