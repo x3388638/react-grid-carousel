@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -141,6 +141,7 @@ const Carousel = ({
   scrollSnap = true,
   hideArrow = false,
   showDots = false,
+  autoplay,
   dotColorActive = '#795548',
   dotColorInactive = '#ccc',
   containerClassName = '',
@@ -148,6 +149,9 @@ const Carousel = ({
   children
 }) => {
   const [currentPage, setCurrentPage] = useState(0)
+  const [isHover, setIsHover] = useState(false)
+  const autoplayIntervalRef = useRef(null)
+
   const itemList = React.Children.toArray(children).filter(
     child => child.type.displayName === CAROUSEL_ITEM
   )
@@ -171,6 +175,37 @@ const Carousel = ({
 
   const page = Math.ceil(itemList.length / itemAmountPerSet)
 
+  const startAutoplayInterval = useCallback(() => {
+    if (
+      autoplayIntervalRef.current === null &&
+      typeof autoplay === 'number' &&
+      window.innerWidth > 767
+    ) {
+      autoplayIntervalRef.current = setInterval(() => {
+        handleNext()
+      }, autoplay)
+    }
+  }, [autoplay, autoplayIntervalRef, handleNext])
+
+  useEffect(() => {
+    startAutoplayInterval()
+
+    return () => {
+      if (autoplayIntervalRef.current !== null) {
+        clearInterval(autoplayIntervalRef.current)
+      }
+    }
+  }, [startAutoplayInterval, autoplayIntervalRef])
+
+  useEffect(() => {
+    if (isHover) {
+      clearInterval(autoplayIntervalRef.current)
+      autoplayIntervalRef.current = null
+    } else {
+      startAutoplayInterval()
+    }
+  }, [isHover, autoplayIntervalRef, startAutoplayInterval])
+
   const handlePrev = useCallback(() => {
     setCurrentPage(p => {
       const prevPage = p - 1
@@ -185,16 +220,25 @@ const Carousel = ({
   const handleNext = useCallback(() => {
     setCurrentPage(p => {
       const nextPage = p + 1
-      if (loop && nextPage >= page) {
-        return 0
+      if (nextPage >= page) {
+        return loop ? 0 : p
       }
 
       return nextPage
     })
   }, [loop, page])
 
+  const handleHover = useCallback(() => {
+    setIsHover(hover => !hover)
+  }, [])
+
   return (
-    <Container className={containerClassName} style={containerStyle}>
+    <Container
+      onMouseEnter={handleHover}
+      onMouseLeave={handleHover}
+      className={containerClassName}
+      style={containerStyle}
+    >
       <NextBtn
         type="prev"
         hidden={hideArrow || (!loop && currentPage <= 0)}
@@ -244,6 +288,7 @@ Carousel.propTypes = {
   scrollSnap: PropTypes.bool,
   hideArrow: PropTypes.bool,
   showDots: PropTypes.bool,
+  autoplay: PropTypes.number,
   dotColorActive: PropTypes.string,
   dotColorInactive: PropTypes.string,
   containerClassName: PropTypes.string,

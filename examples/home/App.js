@@ -73,6 +73,17 @@ const App = () => {
           ))}
         </Carousel>
       </div>
+      <h4 className="thin">Autoplay</h4>
+      <Carousel showDots cols={4} rows={1} loop autoplay={5000}>
+        {[...Array(20)].map((_, i) => (
+          <Carousel.Item key={i}>
+            <img
+              width="100%"
+              src={randomImgUrl.replace('{x}', 250).replace('{y}', 158) + i * 5}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
       <div className="text-secondary small">
         *Photo source:{' '}
         <a

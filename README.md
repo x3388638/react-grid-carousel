@@ -12,7 +12,7 @@
 - Support any component as a item to put into grid
 - Show/hide dots
 - Show/hide arrow buttons
-- Auto play (WIP)
+- Auto play
 - Enable/Disable `scroll-snap` for each item on mobile device
 
 ## Install
@@ -53,19 +53,20 @@ const Gallery = () => {
 
 ## Props
 
-| Prop               | Type    | Default | Description                                          |
-| ------------------ | ------- | ------- | ---------------------------------------------------- |
-| cols               | Number  | 1       | Column amount rendered per page                      |
-| rows               | Number  | 1       | Row amount rendered per page                         |
-| gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px)        |
-| loop               | Boolean | false   | Infinite loop or not                                 |
-| scrollSnap         | Boolean | true    | `true` for applying `scroll-snap` to items on mobile |
-| hideArrow          | Boolean | false   | Show/hide the arrow prev/next buttons                |
-| showDots           | Boolean | false   | Show dots indicate the current page on desktop mode  |
-| dotColorActive     | String  | #795548 | Valid css color value for active dot                 |
-| dotColorInactive   | String  | #ccc    | Valid css color value for inactive dot               |
-| containerClassName | String  |         | Classname for carousel container                     |
-| containerStyle     | Object  |         | Style object for carousel container                  |
+| Prop               | Type    | Default | Description                                               |
+| ------------------ | ------- | ------- | --------------------------------------------------------- |
+| cols               | Number  | 1       | Column amount rendered per page                           |
+| rows               | Number  | 1       | Row amount rendered per page                              |
+| gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px)             |
+| loop               | Boolean | false   | Infinite loop or not                                      |
+| scrollSnap         | Boolean | true    | `true` for applying `scroll-snap` to items on mobile      |
+| hideArrow          | Boolean | false   | Show/hide the arrow prev/next buttons                     |
+| showDots           | Boolean | false   | Show dots indicate the current page on desktop mode       |
+| autoplay           | Number  |         | Autoplay timeout in ms; `undefined` for autoplay disabled |
+| dotColorActive     | String  | #795548 | Valid css color value for active dot                      |
+| dotColorInactive   | String  | #ccc    | Valid css color value for inactive dot                    |
+| containerClassName | String  |         | Classname for carousel container                          |
+| containerStyle     | Object  |         | Style object for carousel container                       |
 
 ## Example
 
@@ -87,10 +88,6 @@ $ npm run dev
 ```
 
 or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
-
-## TODOs
-
-- [ ] autoplay
 
 ## Licence
 
