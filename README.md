@@ -1,5 +1,5 @@
-<h1 style="text-align:center">React Grid Carousel</h1>
-<p style="text-align:center">Flexible carousel layout w/ css grid to easily create a carousel like photo gallery, shopping product card or anything you want</p>
+<h1 align="center">React Grid Carousel</h1>
+<p align="center">Flexible carousel layout w/ css grid<br />to easily create a carousel like photo gallery, shopping product card or anything you want</p>
 
 // TODO: badge, demo gif
 
