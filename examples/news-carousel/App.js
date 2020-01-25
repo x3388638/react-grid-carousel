@@ -130,7 +130,7 @@ const App = () => {
             target="_blank"
             rel="noreferrer noopener"
           >
-            tw.mobi.yahoo.com
+            Yahoo! mobile home page
           </a>
         </h2>
         <div

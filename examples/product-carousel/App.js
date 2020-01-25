@@ -91,7 +91,7 @@ const Code = styled.pre`
   max-width: 1000px;
   margin: 10px auto;
   background: #fff;
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
 `
 
@@ -165,7 +165,7 @@ const App = () => {
             target="_blank"
             rel="noreferrer noopener"
           >
-            tw.buy.yahoo.com
+            Yahoo! Shopping
           </a>
         </h2>
 

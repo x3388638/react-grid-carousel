@@ -77,13 +77,16 @@ $ npm ci
 $ npm run storybook
 ```
 
-In actual life
+Use case in real world
 
 ```bash
 # clone & install packages
 $ npm run dev
 # open localhost:8080
 ```
+
+or visit online version
+https://react-grid-carousel.now.sh
 
 ## TODOs
 

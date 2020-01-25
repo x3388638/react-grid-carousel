@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 function isDirectory(dir) {
   return fs.lstatSync(dir).isDirectory()
@@ -8,7 +9,7 @@ function isDirectory(dir) {
 module.exports = {
   mode: 'development',
   entry: fs.readdirSync(__dirname).reduce((entries, dir) => {
-    if (isDirectory(path.join(__dirname, dir))) {
+    if (dir !== 'dist' && isDirectory(path.join(__dirname, dir))) {
       entries[dir] = path.join(__dirname, dir, 'index.js')
     }
 
@@ -30,6 +31,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new CleanWebpackPlugin({
+      verbose: true
+    })
+  ],
   devServer: {
     contentBase: __dirname,
     publicPath: '/dist/',
