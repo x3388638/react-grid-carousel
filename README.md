@@ -86,7 +86,7 @@ $ npm run dev
 # open localhost:8080
 ```
 
-or visit https://react-grid-carousel.now.sh
+or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
 
 ## TODOs
 
