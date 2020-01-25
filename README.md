@@ -1,7 +1,9 @@
 <h1 align="center">React Grid Carousel</h1>
 <p align="center">Flexible carousel layout w/ css grid<br />to easily create a carousel like photo gallery, shopping product card or anything you want</p>
-
-// TODO: badge, demo gif
+<p align="center">
+<img src="https://github.com/x3388638/react-grid-carousel/blob/master/demo2.gif?raw=true" width="400px" />
+<img src="https://raw.githubusercontent.com/x3388638/react-grid-carousel/master/demo1.gif?token=AB6FH4EIHOHHRRHBSGUJMR26FRJYQ" width="100%" />
+</p>
 
 ## Features
 
