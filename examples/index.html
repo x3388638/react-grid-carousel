@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Examples</title>
+    <title>React Grid Carousel</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <style type="text/css">
       body {
         margin: 0;
@@ -11,16 +17,123 @@
         font-family: sans-serif;
       }
     </style>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <ul>
-      <li><a href="simple-sample/">Simple sample</a></li>
-      <li><a href="product-carousel/">Product carousel: Yahoo-like</a></li>
-      <li><a href="news-carousel/">News carousel: Yahoo-like</a></li>
-      <li><a href="image-carousel/">Image carousel: Airbnb-like</a></li>
-      <li>
-        <a href="testimonial-carousel/">Testimonial carousel: Udemy-like</a>
-      </li>
-    </ul>
+    <style>
+      .highlight {
+        background: beige;
+        font-size: 35px;
+      }
+
+      .pre {
+        display: inline-block;
+        white-space: pre-wrap;
+      }
+
+      .thin {
+        font-weight: 300;
+      }
+
+      .code {
+        background: #add8e64a;
+        padding: 20px;
+      }
+    </style>
+    <div class="jumbotron">
+      <h1 class="display-4" style="font-size: 30px;">
+        $ npm i
+        <span class="highlight pre">&nbsp;react-grid-carousel&nbsp;</span>
+        <span class="pre">--save</span>
+      </h1>
+      <p class="lead">
+        Flexible carousel layout w/ css grid to easily create a carousel like
+        photo gallery, shopping product card or anything you want
+      </p>
+      <a
+        class="btn btn-dark btn-md"
+        href="https://github.com/x3388638/react-grid-carousel"
+        target="blank"
+        role="button"
+        >Github</a
+      >
+    </div>
+    <div class="container">
+      <h2 class="thin">Example</h2>
+      <div id="root"></div>
+      <h2 class="thin">Use case in real world</h2>
+      <ul>
+        <li>
+          <a href="simple-sample/">Simple sample</a>
+        </li>
+        <li><a href="product-carousel/">Product carousel (Yahoo-like)</a></li>
+        <li><a href="news-carousel/">News carousel (Yahoo-like)</a></li>
+        <li><a href="image-carousel/">Image carousel (Airbnb-like)</a></li>
+        <li>
+          <a href="testimonial-carousel/">Testimonial carousel (Udemy-like)</a>
+        </li>
+      </ul>
+      <h2 class="thin">Features</h2>
+      <ul>
+        <li>RWD</li>
+        <li>Multiple items</li>
+        <li>Multiple rows</li>
+        <li>Infinite loop</li>
+        <li>Support any component as a item to put into grid</li>
+        <li>Show/hide dots</li>
+        <li>Show/hide arrow buttons</li>
+        <li>Auto play (WIP)</li>
+        <li>Enable/Disable `scroll-snap` for each item on mobile device</li>
+      </ul>
+      <h2 class="thin">Install</h2>
+      <pre class="code">$ npm install react-grid-carousel --save</pre>
+      <h2 class="thin">Usage</h2>
+      <pre class="code">
+import React from 'react'
+import Carousel from 'react-grid-carousel'
+
+const Gallery = () => {
+return (
+  &lt;Carousel cols={3} rows={3} gap={10} loop>
+    &lt;Carousel.Item>
+      &lt;img width="100%" src="https://picsum.photos/800/600?random=1" />
+    &lt;/Carousel.Item>
+    &lt;Carousel.Item>
+      &lt;img width="100%" src="https://picsum.photos/800/600?random=2" />
+    &lt;/Carousel.Item>
+    &lt;Carousel.Item>
+      &lt;img width="100%" src="https://picsum.photos/800/600?random=3" />
+    &lt;/Carousel.Item>
+    &lt;Carousel.Item>
+      {/* anything you want to show in the grid */}
+    &lt;/Carousel.Item>
+    {/* ... */}
+  &lt;/Carousel>
+  )
+}</pre
+      >
+      <h2 class="thin">Docs</h2>
+      <a href="https://github.com.x3388638/react-grid-carousel" target="_blank"
+        >https://github.com.x3388638/react-grid-carousel</a
+      >
+      <div class="text-center mb-3">
+        &copy; 2020 <a href="//2yc.tw" target="_blank">YY</a>
+      </div>
+    </div>
+    <script src="/dist/home.js"></script>
   </body>
 </html>

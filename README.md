@@ -3,8 +3,9 @@
 
 // TODO: badge, demo gif
 
-## Feature
+## Features
 
+- RWD
 - Multiple items
 - Multiple rows
 - Infinite loop
