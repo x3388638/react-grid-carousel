@@ -1,5 +1,9 @@
+[![NPM](https://nodei.co/npm/react-grid-carousel.png?compact=true)](https://nodei.co/npm/react-grid-carousel/)  
+[![GitHub license](https://img.shields.io/github/license/x3388638/react-grid-carousel)](https://github.com/x3388638/react-grid-carousel/blob/master/LICENSE) [![npm version](https://badge.fury.io/js/react-grid-carousel.svg)](https://badge.fury.io/js/react-grid-carousel) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
+
 <h1 align="center">React Grid Carousel</h1>
 <p align="center">Flexible carousel layout w/ css grid<br />to easily create a carousel like photo gallery, shopping product card or anything you want</p>
+
 <p align="center">
 <img src="https://github.com/x3388638/react-grid-carousel/blob/master/demo2.gif?raw=true" width="400px" />
 <img src="https://github.com/x3388638/react-grid-carousel/blob/master/demo1.gif?raw=true" width="100%" />
