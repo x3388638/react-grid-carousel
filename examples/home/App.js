@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import Carousel from '../../dist/bundle'
 
 const randomImgUrl = 'https://picsum.photos/{x}/{y}?random='
 
 const App = () => {
+  const [isHover, setIshover] = useState(false)
+
+  const handleHover = useCallback(() => {
+    setIshover(state => !state)
+  }, [])
+
   return (
     <div>
       <h4 className="thin">Single column</h4>
@@ -12,7 +18,7 @@ const App = () => {
           <Carousel.Item key={i}>
             <img
               width="100%"
-              src={randomImgUrl.replace('{x}', 500).replace('{y}', 300) + i}
+              src={randomImgUrl.replace('{x}', 400).replace('{y}', 280) + i}
             />
           </Carousel.Item>
         ))}
@@ -23,7 +29,7 @@ const App = () => {
           <Carousel.Item key={i}>
             <img
               width="100%"
-              src={randomImgUrl.replace('{x}', 600).replace('{y}', 400) + i * 2}
+              src={randomImgUrl.replace('{x}', 350).replace('{y}', 170) + i * 2}
             />
           </Carousel.Item>
         ))}
@@ -39,11 +45,44 @@ const App = () => {
           <Carousel.Item key={i}>
             <img
               width="100%"
-              src={randomImgUrl.replace('{x}', 400).replace('{y}', 250) + i * 3}
+              src={randomImgUrl.replace('{x}', 250).replace('{y}', 158) + i * 3}
             />
           </Carousel.Item>
         ))}
       </Carousel>
+      <h4 className="thin">
+        Show/hide arrow buttons and dots w/ infinite loop
+      </h4>
+      <div onMouseEnter={handleHover} onMouseLeave={handleHover}>
+        <Carousel
+          showDots={isHover}
+          hideArrow={!isHover}
+          cols={3}
+          loop
+          containerStyle={{ maxWidth: '1000px', marginBottom: '20px' }}
+        >
+          {[...Array(9)].map((_, i) => (
+            <Carousel.Item key={i}>
+              <img
+                width="100%"
+                src={
+                  randomImgUrl.replace('{x}', 250).replace('{y}', 128) + i * 4
+                }
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
+      <div className="text-secondary small">
+        *Photo source:{' '}
+        <a
+          href="https://picsum.photos/"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          https://picsum.photos/
+        </a>
+      </div>
     </div>
   )
 }

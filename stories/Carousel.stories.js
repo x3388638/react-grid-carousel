@@ -259,7 +259,7 @@ export default {
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
         {story()}
         <span style={{ position: 'absolute', bottom: '0', right: '0' }}>
-          Photo by{' '}
+          Photo source{' '}
           <a href="https://picsum.photos/" rel="noreferrer noopener">
             https://picsum.photos/
           </a>

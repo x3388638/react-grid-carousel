@@ -67,7 +67,7 @@ const Gallery = () => {
 | containerClassName | String  |         | Classname for carousel container                     |
 | containerStyle     | Object  |         | Style object for carousel container                  |
 
-## Examples
+## Example
 
 Storybook (Don't forget to try on different viewport size)
 
@@ -86,8 +86,7 @@ $ npm run dev
 # open localhost:8080
 ```
 
-or visit online version
-https://react-grid-carousel.now.sh
+or visit https://react-grid-carousel.now.sh
 
 ## TODOs
 
