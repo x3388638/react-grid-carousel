@@ -7,6 +7,8 @@
   <title>React Grid Carousel</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/solarized-light.min.css" />
   <style type="text/css">
     body {
       margin: 0;
@@ -23,6 +25,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -44,6 +48,10 @@
     .code {
       background: #add8e64a;
       padding: 20px;
+    }
+
+    .code>code {
+      background: transparent;
     }
   </style>
   <div class="jumbotron" style="border-radius: 0">
@@ -86,35 +94,35 @@
       <li>Support any component as a item to put into grid</li>
       <li>Show/hide dots</li>
       <li>Show/hide arrow buttons</li>
-      <li>Auto play (WIP)</li>
+      <li>Auto play</li>
       <li>Enable/Disable `scroll-snap` for each item on mobile device</li>
     </ul>
     <h2 class="thin">Install</h2>
     <pre class="code">$ npm install react-grid-carousel --save</pre>
     <h2 class="thin">Usage</h2>
-    <pre class="code">
+    <pre class="code"><code class="javascript">
 import React from 'react'
 import Carousel from 'react-grid-carousel'
 
 const Gallery = () => {
-return (
-  &lt;Carousel cols={3} rows={3} gap={10} loop>
-    &lt;Carousel.Item>
-      &lt;img width="100%" src="https://picsum.photos/800/600?random=1" />
-    &lt;/Carousel.Item>
-    &lt;Carousel.Item>
-      &lt;img width="100%" src="https://picsum.photos/800/600?random=2" />
-    &lt;/Carousel.Item>
-    &lt;Carousel.Item>
-      &lt;img width="100%" src="https://picsum.photos/800/600?random=3" />
-    &lt;/Carousel.Item>
-    &lt;Carousel.Item>
-      {/* anything you want to show in the grid */}
-    &lt;/Carousel.Item>
-    {/* ... */}
-  &lt;/Carousel>
+  return (
+    &lt;Carousel cols={3} rows={3} gap={10} loop>
+      &lt;Carousel.Item>
+        &lt;img width="100%" src="https://picsum.photos/800/600?random=1" />
+      &lt;/Carousel.Item>
+      &lt;Carousel.Item>
+        &lt;img width="100%" src="https://picsum.photos/800/600?random=2" />
+      &lt;/Carousel.Item>
+      &lt;Carousel.Item>
+        &lt;img width="100%" src="https://picsum.photos/800/600?random=3" />
+      &lt;/Carousel.Item>
+      &lt;Carousel.Item>
+        {/* anything you want to show in the grid */}
+      &lt;/Carousel.Item>
+      {/* ... */}
+    &lt;/Carousel>
   )
-}</pre>
+}</code></pre>
     <h2 class="thin">Docs</h2>
     <a href="https://github.com/x3388638/react-grid-carousel"
       target="_blank">https://github.com/x3388638/react-grid-carousel</a>
