@@ -34,7 +34,7 @@ import Carousel from 'react-grid-carousel'
 
 const Gallery = () => {
   return (
-    <Carousel cols={3} rows={3} gap={10} loop>
+    <Carousel cols={2} rows={1} gap={10} loop>
       <Carousel.Item>
         <img width="100%" src="https://picsum.photos/800/600?random=1" />
       </Carousel.Item>
