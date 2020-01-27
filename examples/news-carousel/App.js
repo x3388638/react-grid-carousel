@@ -88,39 +88,34 @@ const App = () => {
       </h2>
       <Notice>Notice: You should try this demo on mobile viewport size</Notice>
       <Carousel>
-        {newsList.map(({ imageSrc, title, comment }, i) => {
-          return (
-            <Carousel.Item key={i}>
-              <Item img={imageSrc}>
-                <Index>
-                  {i + 1}/{newsList.length}
-                </Index>
-                <Detail>
-                  <Title>{title}</Title>
-                  {!!comment && <Comment>{comment.count} comments</Comment>}
-                </Detail>
-              </Item>
-            </Carousel.Item>
-          )
-        })}
+        {newsList.map(({ imageSrc, title, comment }, i) => (
+          <Carousel.Item key={i}>
+            <Item img={imageSrc}>
+              <Index>
+                {i + 1}/{newsList.length}
+              </Index>
+              <Detail>
+                <Title>{title}</Title>
+                {!!comment && <Comment>{comment.count} comments</Comment>}
+              </Detail>
+            </Item>
+          </Carousel.Item>
+        ))}
       </Carousel>
-      <Code>{`
-<Carousel>
-  {newsList.map(({ imageSrc, title, comment }, i) => {
-    return (
-      <Carousel.Item key={i}>
-        <Item img={imageSrc}>
-          <Index>
-            {i + 1}/{newsList.length}
-          </Index>
-          <Detail>
-            <Title>{title}</Title>
-            {!!comment && <Comment>{comment.count} comments</Comment>}
-          </Detail>
-        </Item>
-      </Carousel.Item>
-    )
-  })}
+      <Code>{`<Carousel>
+  {newsList.map(({ imageSrc, title, comment }, i) => (
+    <Carousel.Item key={i}>
+      <Item img={imageSrc}>
+        <Index>
+          {i + 1}/{newsList.length}
+        </Index>
+        <Detail>
+          <Title>{title}</Title>
+          {!!comment && <Comment>{comment.count} comments</Comment>}
+        </Detail>
+      </Item>
+    </Carousel.Item>
+  ))}
 </Carousel>`}</Code>
       <Reference>
         <h2 align="center">

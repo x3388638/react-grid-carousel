@@ -108,13 +108,11 @@ const App = () => {
       <HotelRow onMouseLeave={handleHover} onMouseEnter={handleHover}>
         <CarouselWapeer>
           <Carousel hideArrow={!isHover} showDots>
-            {images.map((img, i) => {
-              return (
-                <Carousel.Item key={i}>
-                  <img src={img} width="100%" height="200px" />
-                </Carousel.Item>
-              )
-            })}
+            {images.map((img, i) => (
+              <Carousel.Item key={i}>
+                <img src={img} width="100%" height="200px" />
+              </Carousel.Item>
+            ))}
           </Carousel>
         </CarouselWapeer>
         <div>
@@ -130,13 +128,11 @@ const App = () => {
         </div>
       </HotelRow>
       <Code>{`<Carousel hideArrow={!isHover} showDots>
-  {images.map((img, i) => {
-    return (
-      <Carousel.Item key={i}>
-        <img src={img} width="100%" height="200px" />
-      </Carousel.Item>
-    )
-  })}
+  {images.map((img, i) => (
+    <Carousel.Item key={i}>
+      <img src={img} width="100%" height="200px" />
+    </Carousel.Item>
+  ))}
 </Carousel>`}</Code>
       <Reference>
         <h2 align="center">

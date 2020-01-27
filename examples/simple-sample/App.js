@@ -76,13 +76,11 @@ const App = () => {
       </div>
       <hr />
       <Carousel cols={cols} rows={rows} gap={gap}>
-        {[...Array(cols * rows * pages)].map((_, i) => {
-          return (
-            <Carousel.Item key={i}>
-              <Item img={randomImageUrl + i} />
-            </Carousel.Item>
-          )
-        })}
+        {[...Array(cols * rows * pages)].map((_, i) => (
+          <Carousel.Item key={i}>
+            <Item img={randomImageUrl + i} />
+          </Carousel.Item>
+        ))}
       </Carousel>
       Photo by{' '}
       <a
