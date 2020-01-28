@@ -95,6 +95,11 @@ $ npm run dev
 
 or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
 
+## TODOs
+
+- [ ] customized arrow button
+- [ ] customized dot
+
 ## LICENSE
 
 MIT

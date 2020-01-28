@@ -117,6 +117,7 @@ const Dot = styled.div`
   height: 8px;
   border-radius: 50%;
   margin: 0 5px;
+  cursor: pointer;
   background: ${({ color }) => color};
 `
 
@@ -228,6 +229,10 @@ const Carousel = ({
     })
   }, [loop, page])
 
+  const handlePage = useCallback(e => {
+    setCurrentPage(+e.target.getAttribute('data-index'))
+  }, [])
+
   const handleHover = useCallback(() => {
     setIsHover(hover => !hover)
   }, [])
@@ -266,6 +271,8 @@ const Carousel = ({
           {[...Array(page)].map((_, i) => (
             <Dot
               key={i}
+              data-index={i}
+              onClick={handlePage}
               color={i === currentPage ? dotColorActive : dotColorInactive}
             />
           ))}
