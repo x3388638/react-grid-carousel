@@ -99,6 +99,7 @@ or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
 
 - [ ] customized arrow button
 - [ ] customized dot
+- [ ] customized RWD amount of cols and rows
 
 ## LICENSE
 

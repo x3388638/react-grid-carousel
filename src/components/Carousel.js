@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -153,26 +153,34 @@ const Carousel = ({
   const [isHover, setIsHover] = useState(false)
   const autoplayIntervalRef = useRef(null)
 
-  const itemList = React.Children.toArray(children).filter(
-    child => child.type.displayName === CAROUSEL_ITEM
+  const itemList = useMemo(
+    () =>
+      React.Children.toArray(children).filter(
+        child => child.type.displayName === CAROUSEL_ITEM
+      ),
+    [children]
   )
 
   const itemAmountPerSet = cols * rows
-  const itemSetList = itemList.reduce((result, item, i) => {
-    const itemComponent = (
-      <Item key={i} scrollSnap={scrollSnap}>
-        {item}
-      </Item>
-    )
+  const itemSetList = useMemo(
+    () =>
+      itemList.reduce((result, item, i) => {
+        const itemComponent = (
+          <Item key={i} scrollSnap={scrollSnap}>
+            {item}
+          </Item>
+        )
 
-    if (i % itemAmountPerSet === 0) {
-      result.push([itemComponent])
-    } else {
-      result[result.length - 1].push(itemComponent)
-    }
+        if (i % itemAmountPerSet === 0) {
+          result.push([itemComponent])
+        } else {
+          result[result.length - 1].push(itemComponent)
+        }
 
-    return result
-  }, [])
+        return result
+      }, []),
+    [itemList, itemAmountPerSet, scrollSnap]
+  )
 
   const page = Math.ceil(itemList.length / itemAmountPerSet)
 
