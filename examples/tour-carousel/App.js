@@ -87,7 +87,7 @@ const App = () => (
 </Carousel>`}</Code>
     <Reference>
       <h2 align="center">
-        Travel city carousel on{' '}
+        Tour carousel on{' '}
         <a
           href="https://www.klook.com/en-US/"
           target="_blank"
