@@ -343,10 +343,41 @@ const Carousel = ({
   )
 }
 
+const numberValidator = (props, propName, componentName, type) => {
+  PropTypes.checkPropTypes(
+    {
+      [propName]: PropTypes.number
+    },
+    props,
+    propName,
+    componentName
+  )
+
+  if (props[propName] <= 0) {
+    if (
+      type === 'positive' ||
+      (props[propName] < 0 && type === 'non-negative')
+    ) {
+      return new Error(
+        `Invalid prop \`${propName}\` supplied to \`${componentName}\`. expected ${type} \`number\``
+      )
+    }
+  }
+}
+
 Carousel.propTypes = {
-  cols: PropTypes.number,
-  rows: PropTypes.number,
-  gap: PropTypes.number,
+  cols: (...args) => {
+    args.splice(3, 0, 'positive')
+    return numberValidator(...args)
+  },
+  rows: (...args) => {
+    args.splice(3, 0, 'positive')
+    return numberValidator(...args)
+  },
+  gap: (...args) => {
+    args.splice(3, 0, 'non-negative')
+    return numberValidator(...args)
+  },
   loop: PropTypes.bool,
   scrollSnap: PropTypes.bool,
   hideArrow: PropTypes.bool,
