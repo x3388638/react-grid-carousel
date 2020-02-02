@@ -84,6 +84,28 @@ const App = () => {
           </Carousel.Item>
         ))}
       </Carousel>
+      <h4 className="thin">
+        Customized layout for RWD (max-width: 1000px/750px/500px)
+      </h4>
+      <Carousel
+        showDots
+        cols={5}
+        rows={2}
+        mobileBreakpoint={499}
+        responsiveLayout={[
+          { breakpoint: 1000, cols: 3 },
+          { breakpoint: 750, cols: 2, rows: 1, gap: 5 }
+        ]}
+      >
+        {[...Array(20)].map((_, i) => (
+          <Carousel.Item key={i}>
+            <img
+              width="100%"
+              src={randomImgUrl.replace('{x}', 250).replace('{y}', 158) + i * 6}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
       <div className="text-secondary small">
         *Photo source:{' '}
         <a

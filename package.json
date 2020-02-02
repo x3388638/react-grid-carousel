@@ -28,6 +28,7 @@
   "author": "YY",
   "license": "MIT",
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "prop-types": "^15.7.2",
     "styled-components": "^4.4.1"
   },

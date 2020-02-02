@@ -94,6 +94,27 @@ export const Autoplay = () => {
   )
 }
 
+export const ResponsiveLayout = () => {
+  return (
+    <Carousel
+      cols={6}
+      rows={2}
+      showDots
+      responsiveLayout={[
+        { breakpoint: 1000, cols: 5, gap: 5 },
+        { breakpoint: 800, cols: 4, rows: 1, gap: 2 }
+      ]}
+      mobileBreakpoint={499}
+    >
+      {[...Array(24)].map((_, i) => (
+        <Carousel.Item key={i}>
+          <Item img={randomImageUrl + i} />
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  )
+}
+
 const Card = styled.div`
   cursor: pointer;
   padding: 5px;

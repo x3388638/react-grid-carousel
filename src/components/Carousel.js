@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import useResize from '../hooks/resizeHook'
+const css = require('styled-components').css
 
 const Container = styled.div`
   position: relative;
@@ -43,25 +45,30 @@ const NextBtn = styled.span`
         : 'translate(-75%, -50%) rotate(45deg)'};
   }
 
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
+  ${({ mobileBreakpoint }) => css`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+      display: none;
+    }
+  `}
 `
 
 const RailWrapper = styled.div`
   overflow: hidden;
   margin: ${({ showDots }) => (showDots ? '0 20px 15px 20px' : '0 20px')};
 
-  @media screen and (max-width: 767px) {
-    overflow-x: auto;
-    margin: 0;
-    scroll-snap-type: ${({ scrollSnap }) => (scrollSnap ? 'x mandatory' : '')};
-    scrollbar-width: none;
+  ${({ mobileBreakpoint }) => css`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+      overflow-x: auto;
+      margin: 0;
+      scroll-snap-type: ${({ scrollSnap }) =>
+        scrollSnap ? 'x mandatory' : ''};
+      scrollbar-width: none;
 
-    &::-webkit-scrollbar {
-      display: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
-  }
+  `}
 `
 
 const Rail = styled.div`
@@ -73,12 +80,14 @@ const Rail = styled.div`
   left: ${({ currentPage }) =>
     `calc(${-100 * currentPage}% - ${10 * currentPage}px)`};
 
-  @media screen and (max-width: 767px) {
-    padding-left: ${({ gap }) => `${gap}px`};
-    grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
-    grid-column-gap: ${({ cols, rows, gap }) =>
-      `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
-  }
+  ${({ mobileBreakpoint }) => css`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+      padding-left: ${({ gap }) => `${gap}px`};
+      grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
+      grid-column-gap: ${({ cols, rows, gap }) =>
+        `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
+    }
+  `}
 `
 
 const ItemSet = styled.div`
@@ -87,15 +96,17 @@ const ItemSet = styled.div`
   grid-template-rows: ${({ rows }) => `repeat(${rows}, 1fr)`};
   grid-gap: ${({ gap }) => `${gap}px`};
 
-  @media screen and (max-width: 767px) {
-    grid-template-columns: ${({ cols, rows }) =>
-      `repeat(${cols * rows}, 100%)`};
-    grid-template-rows: 1fr;
+  ${({ mobileBreakpoint }) => css`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+      grid-template-columns: ${({ cols, rows }) =>
+        `repeat(${cols * rows}, 100%)`};
+      grid-template-rows: 1fr;
 
-    &:last-of-type > ${Item}:last-of-type {
-      padding-right: ${({ gap }) => `${gap}px`};
+      &:last-of-type > ${Item}:last-of-type {
+        padding-right: ${({ gap }) => `${gap}px`};
+      }
     }
-  }
+  `}
 `
 
 const DotContainer = styled.div`
@@ -106,9 +117,11 @@ const DotContainer = styled.div`
   line-height: 10px;
   text-align: center;
 
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
+  ${({ mobileBreakpoint }) => css`
+    @media screen and (max-width: ${mobileBreakpoint}px) {
+      display: none;
+    }
+  `}
 `
 
 const Dot = styled.div`
@@ -121,23 +134,15 @@ const Dot = styled.div`
   background: ${({ color }) => color};
 `
 
-const Item = ({ scrollSnap, children }) => {
-  return (
-    <div
-      css={`
-        scroll-snap-align: ${scrollSnap ? 'center' : ''};
-      `}
-    >
-      {children}
-    </div>
-  )
-}
+const Item = styled.div`
+  scroll-snap-align: ${({ scrollSnap }) => (scrollSnap ? 'center' : '')};
+`
 
 const CAROUSEL_ITEM = 'CAROUSEL_ITEM'
 const Carousel = ({
-  cols = 1,
-  rows = 1,
-  gap = 10,
+  cols: colsProp = 1,
+  rows: rowsProp = 1,
+  gap: gapProp = 10,
   loop = false,
   scrollSnap = true,
   hideArrow = false,
@@ -145,13 +150,45 @@ const Carousel = ({
   autoplay,
   dotColorActive = '#795548',
   dotColorInactive = '#ccc',
+  responsiveLayout,
+  mobileBreakpoint = 767,
   containerClassName = '',
   containerStyle = {},
   children
 }) => {
   const [currentPage, setCurrentPage] = useState(0)
   const [isHover, setIsHover] = useState(false)
+  const [cols, setCols] = useState(colsProp)
+  const [rows, setRows] = useState(rowsProp)
+  const [gap, setGap] = useState(gapProp)
   const autoplayIntervalRef = useRef(null)
+  const breakpointSetting = useResize(responsiveLayout)
+
+  useEffect(() => {
+    setCols(colsProp)
+  }, [colsProp])
+
+  useEffect(() => {
+    setRows(rowsProp)
+  }, [rowsProp])
+
+  useEffect(() => {
+    setGap(gapProp)
+  }, [gapProp])
+
+  useEffect(() => {
+    if (breakpointSetting) {
+      setCols(breakpointSetting.cols || colsProp)
+      setRows(breakpointSetting.rows || rowsProp)
+      setGap(breakpointSetting.gap || gapProp)
+    } else {
+      setCols(colsProp)
+      setRows(rowsProp)
+      setGap(gapProp)
+    }
+
+    setCurrentPage(0)
+  }, [breakpointSetting, colsProp, rowsProp, gapProp])
 
   const itemList = useMemo(
     () =>
@@ -254,28 +291,38 @@ const Carousel = ({
     >
       <NextBtn
         type="prev"
+        mobileBreakpoint={mobileBreakpoint}
         hidden={hideArrow || (!loop && currentPage <= 0)}
         onClick={handlePrev}
       />
-      <RailWrapper scrollSnap={scrollSnap} showDots={showDots}>
+      <RailWrapper
+        mobileBreakpoint={mobileBreakpoint}
+        scrollSnap={scrollSnap}
+        showDots={showDots}
+      >
         <Rail
           cols={cols}
           rows={rows}
           page={page}
           gap={gap}
           currentPage={currentPage}
+          mobileBreakpoint={mobileBreakpoint}
         >
-          {itemSetList.map((set, i) => {
-            return (
-              <ItemSet key={i} cols={cols} rows={rows} gap={gap}>
-                {set}
-              </ItemSet>
-            )
-          })}
+          {itemSetList.map((set, i) => (
+            <ItemSet
+              key={i}
+              cols={cols}
+              rows={rows}
+              gap={gap}
+              mobileBreakpoint={mobileBreakpoint}
+            >
+              {set}
+            </ItemSet>
+          ))}
         </Rail>
       </RailWrapper>
       {showDots && (
-        <DotContainer>
+        <DotContainer mobileBreakpoint={mobileBreakpoint}>
           {[...Array(page)].map((_, i) => (
             <Dot
               key={i}
@@ -288,6 +335,7 @@ const Carousel = ({
       )}
       <NextBtn
         type="next"
+        mobileBreakpoint={mobileBreakpoint}
         hidden={hideArrow || (!loop && currentPage === page - 1)}
         onClick={handleNext}
       />
@@ -306,6 +354,15 @@ Carousel.propTypes = {
   autoplay: PropTypes.number,
   dotColorActive: PropTypes.string,
   dotColorInactive: PropTypes.string,
+  responsiveLayout: PropTypes.arrayOf(
+    PropTypes.shape({
+      breakpoint: PropTypes.number.isRequired,
+      cols: PropTypes.number,
+      rows: PropTypes.number,
+      gap: PropTypes.number
+    })
+  ),
+  mobileBreakpoint: PropTypes.number,
   containerClassName: PropTypes.string,
   containerStyle: PropTypes.object
 }

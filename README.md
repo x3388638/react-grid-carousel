@@ -20,6 +20,7 @@
 - Show/hide arrow buttons
 - Auto play
 - Enable/Disable `scroll-snap` for each item on mobile device
+- Customized layout (cols & rows) for different breakpoint
 
 ## Install
 
@@ -59,20 +60,46 @@ const Gallery = () => {
 
 ## Props
 
-| Prop               | Type    | Default | Description                                               |
-| ------------------ | ------- | ------- | --------------------------------------------------------- |
-| cols               | Number  | 1       | Column amount rendered per page                           |
-| rows               | Number  | 1       | Row amount rendered per page                              |
-| gap                | Number  | 10      | Margin (grid-gap) between each item/grid (px)             |
-| loop               | Boolean | false   | Infinite loop or not                                      |
-| scrollSnap         | Boolean | true    | `true` for applying `scroll-snap` to items on mobile      |
-| hideArrow          | Boolean | false   | Show/hide the arrow prev/next buttons                     |
-| showDots           | Boolean | false   | Show dots indicate the current page on desktop mode       |
-| autoplay           | Number  |         | Autoplay timeout in ms; `undefined` for autoplay disabled |
-| dotColorActive     | String  | #795548 | Valid css color value for active dot                      |
-| dotColorInactive   | String  | #ccc    | Valid css color value for inactive dot                    |
-| containerClassName | String  |         | Classname for carousel container                          |
-| containerStyle     | Object  |         | Style object for carousel container                       |
+| Prop                                  | Type    | Default   | Description                                               |
+| ------------------------------------- | ------- | --------- | --------------------------------------------------------- |
+| cols                                  | Number  | 1         | Column amount rendered per page                           |
+| rows                                  | Number  | 1         | Row amount rendered per page                              |
+| gap                                   | Number  | 10        | Margin (grid-gap) between each item/grid (px)             |
+| loop                                  | Boolean | false     | Infinite loop or not                                      |
+| scrollSnap                            | Boolean | true      | `true` for applying `scroll-snap` to items on mobile      |
+| hideArrow                             | Boolean | false     | Show/hide the arrow prev/next buttons                     |
+| showDots                              | Boolean | false     | Show dots indicate the current page on desktop mode       |
+| autoplay                              | Number  |           | Autoplay timeout in ms; `undefined` for autoplay disabled |
+| dotColorActive                        | String  | '#795548' | Valid css color value for active dot                      |
+| dotColorInactive                      | String  | '#ccc'    | Valid css color value for inactive dot                    |
+| [responsiveLayout](#responsiveLayout) | Array   |           | Customized cols & rows on different viewport size         |
+| mobileBreakpoint                      | Number  | 767       | The breakpoint(px) to switch to default mobile layout     |
+| containerClassName                    | String  |           | Classname for carousel container                          |
+| containerStyle                        | Object  |           | Style object for carousel container                       |
+
+### responsiveLayout
+
+Array of layout settings for each breakbpoint
+
+#### Setting options
+
+`breakpoint`: Number; Requried; Equals to `max-width` used in media query, in px unit  
+`cols`: Number; Column amount in this breakpoint layout  
+`rows`: Number; Row amount in this breakpoint layout  
+`gap`: Number; Gap size in this breakpoint layout
+
+e.g.
+
+```
+[
+  {
+    breakpoint: 800,
+    cols: 3,
+    rows: 1,
+    gap: 10
+  }
+]
+```
 
 ## Example
 
@@ -99,7 +126,6 @@ or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
 
 - [ ] customized arrow button
 - [ ] customized dot
-- [ ] customized RWD amount of cols and rows
 
 ## LICENSE
 
