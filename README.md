@@ -5,8 +5,9 @@
 <p align="center">Flexible carousel layout w/ css grid<br />to easily create a carousel like photo gallery, shopping product card or anything you want</p>
 
 <p align="center">
-<img src="https://github.com/x3388638/react-grid-carousel/blob/master/demo2.gif?raw=true" width="400px" />
-<img src="https://github.com/x3388638/react-grid-carousel/blob/master/demo1.gif?raw=true" width="100%" />
+<img src="https://gist.githubusercontent.com/x3388638/82e341b43990c7851c9438dfdec43e3b/raw/69d266ba9f7140994eefb5bb9623d7bd339a12ae/demo2.gif" width="400px" />
+<img src="https://gist.githubusercontent.com/x3388638/82e341b43990c7851c9438dfdec43e3b/raw/69d266ba9f7140994eefb5bb9623d7bd339a12ae/demo1.gif" width="100%" />
+<img src="https://gist.githubusercontent.com/x3388638/82e341b43990c7851c9438dfdec43e3b/raw/69d266ba9f7140994eefb5bb9623d7bd339a12ae/demo3.gif" width="600px" />
 </p>
 
 ## Features
