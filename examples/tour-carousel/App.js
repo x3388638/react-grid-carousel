@@ -62,6 +62,17 @@ const Reference = styled.div`
 
 const App = () => (
   <Container>
+    <h2 align="center">
+      Use{' '}
+      <span
+        css={`
+          background: lightgray;
+        `}
+      >
+        &nbsp;react-grid-carousel&nbsp;
+      </span>{' '}
+      to build tour carousel
+    </h2>
     <Row>
       <h1
         css={`
