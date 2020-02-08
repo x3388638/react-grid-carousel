@@ -104,6 +104,7 @@ const ItemSet = styled.div`
 
       &:last-of-type > ${Item}:last-of-type {
         padding-right: ${({ gap }) => `${gap}px`};
+        margin-right: ${({ gap }) => `-${gap}px`};
       }
     }
   `}
@@ -222,13 +223,13 @@ const Carousel = ({
   const page = Math.ceil(itemList.length / itemAmountPerSet)
 
   const startAutoplayInterval = useCallback(() => {
-    if (
-      autoplayIntervalRef.current === null &&
-      typeof autoplay === 'number' &&
-      window.innerWidth > 767
-    ) {
+    if (autoplayIntervalRef.current === null && typeof autoplay === 'number') {
       autoplayIntervalRef.current = setInterval(() => {
-        handleNext()
+        if (window.innerWidth > mobileBreakpoint) {
+          handleNext()
+        } else {
+          // TODO:
+        }
       }, autoplay)
     }
   }, [autoplay, autoplayIntervalRef, handleNext])
