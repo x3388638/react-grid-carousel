@@ -1,8 +1,11 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import smoothscroll from 'smoothscroll-polyfill'
 import useResize from '../hooks/resizeHook'
 const css = require('styled-components').css
+
+smoothscroll.polyfill()
 
 const Container = styled.div`
   position: relative;
@@ -291,7 +294,9 @@ const Carousel = ({
           left:
             loop && scrollLeft + offsetWidth >= scrollWidth
               ? -scrollLeft
-              : offsetWidth,
+              : scrollLeft === 0
+              ? (offsetWidth - gap) * 0.9
+              : (offsetWidth - gap) * 0.9 + gap,
           behavior: 'smooth'
         })
       } else {
@@ -305,7 +310,7 @@ const Carousel = ({
         })
       }
     },
-    [loop, page, railWrapperRef.current, scrollSnap]
+    [loop, page, gap, railWrapperRef.current, scrollSnap]
   )
 
   const handlePage = useCallback(e => {
