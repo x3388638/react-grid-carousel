@@ -87,6 +87,14 @@ const App = () => {
       <h4 className="thin">
         Customized layout for RWD (max-width: 1000px/750px/500px)
       </h4>
+      <details>
+        <summary>responsiveLayout settings</summary>
+        <pre>{`[
+  { breakpoint: 1000, cols: 3 },
+  { breakpoint: 750, cols: 2, rows: 1, gap: 5 },
+  { breakpoint: 499, autoplay: 2000, loop: true }
+]`}</pre>
+      </details>
       <Carousel
         showDots
         cols={5}
@@ -94,7 +102,8 @@ const App = () => {
         mobileBreakpoint={499}
         responsiveLayout={[
           { breakpoint: 1000, cols: 3 },
-          { breakpoint: 750, cols: 2, rows: 1, gap: 5 }
+          { breakpoint: 750, cols: 2, rows: 1, gap: 5 },
+          { breakpoint: 499, autoplay: 2000, loop: true }
         ]}
       >
         {[...Array(20)].map((_, i) => (
@@ -106,6 +115,7 @@ const App = () => {
           </Carousel.Item>
         ))}
       </Carousel>
+
       <div className="text-secondary small">
         *Photo source:{' '}
         <a

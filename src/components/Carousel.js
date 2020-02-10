@@ -86,6 +86,7 @@ const Rail = styled.div`
       grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
       grid-column-gap: ${({ cols, rows, gap }) =>
         `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
+      left: 0;
     }
   `}
 `
@@ -144,11 +145,11 @@ const Carousel = ({
   cols: colsProp = 1,
   rows: rowsProp = 1,
   gap: gapProp = 10,
-  loop = false,
+  loop: loopProp = false,
   scrollSnap = true,
   hideArrow = false,
   showDots = false,
-  autoplay,
+  autoplay: autoplayProp,
   dotColorActive = '#795548',
   dotColorInactive = '#ccc',
   responsiveLayout,
@@ -159,9 +160,13 @@ const Carousel = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(0)
   const [isHover, setIsHover] = useState(false)
+  const [isTouch, setIsTouch] = useState(false)
   const [cols, setCols] = useState(colsProp)
   const [rows, setRows] = useState(rowsProp)
   const [gap, setGap] = useState(gapProp)
+  const [loop, setLoop] = useState(loopProp)
+  const [autoplay, setAutoplay] = useState(autoplayProp)
+  const railWrapperRef = useRef(null)
   const autoplayIntervalRef = useRef(null)
   const breakpointSetting = useResize(responsiveLayout)
 
@@ -178,18 +183,30 @@ const Carousel = ({
   }, [gapProp])
 
   useEffect(() => {
+    setAutoplay(autoplayProp)
+  }, [autoplayProp])
+
+  useEffect(() => {
+    setLoop(loopProp)
+  }, [loopProp])
+
+  useEffect(() => {
     if (breakpointSetting) {
       setCols(breakpointSetting.cols || colsProp)
       setRows(breakpointSetting.rows || rowsProp)
       setGap(breakpointSetting.gap || gapProp)
+      setLoop(breakpointSetting.loop || loopProp)
+      setAutoplay(breakpointSetting.autoplay || autoplayProp)
     } else {
       setCols(colsProp)
       setRows(rowsProp)
       setGap(gapProp)
+      setLoop(loopProp)
+      setAutoplay(autoplayProp)
     }
 
     setCurrentPage(0)
-  }, [breakpointSetting, colsProp, rowsProp, gapProp])
+  }, [breakpointSetting, colsProp, rowsProp, gapProp, loopProp, autoplayProp])
 
   const itemList = useMemo(
     () =>
@@ -225,11 +242,7 @@ const Carousel = ({
   const startAutoplayInterval = useCallback(() => {
     if (autoplayIntervalRef.current === null && typeof autoplay === 'number') {
       autoplayIntervalRef.current = setInterval(() => {
-        if (window.innerWidth > mobileBreakpoint) {
-          handleNext()
-        } else {
-          // TODO:
-        }
+        handleNext(window.innerWidth <= mobileBreakpoint)
       }, autoplay)
     }
   }, [autoplay, autoplayIntervalRef, handleNext])
@@ -245,13 +258,13 @@ const Carousel = ({
   }, [startAutoplayInterval, autoplayIntervalRef])
 
   useEffect(() => {
-    if (isHover) {
+    if (isHover || isTouch) {
       clearInterval(autoplayIntervalRef.current)
       autoplayIntervalRef.current = null
     } else {
       startAutoplayInterval()
     }
-  }, [isHover, autoplayIntervalRef, startAutoplayInterval])
+  }, [isHover, isTouch, autoplayIntervalRef, startAutoplayInterval])
 
   const handlePrev = useCallback(() => {
     setCurrentPage(p => {
@@ -264,16 +277,36 @@ const Carousel = ({
     })
   }, [loop, page])
 
-  const handleNext = useCallback(() => {
-    setCurrentPage(p => {
-      const nextPage = p + 1
-      if (nextPage >= page) {
-        return loop ? 0 : p
-      }
+  const handleNext = useCallback(
+    (isMobile = false) => {
+      const railWrapper = railWrapperRef.current
+      if (isMobile && railWrapper) {
+        if (!scrollSnap) {
+          return
+        }
 
-      return nextPage
-    })
-  }, [loop, page])
+        const { scrollLeft, offsetWidth, scrollWidth } = railWrapper
+        railWrapper.scrollBy({
+          top: 0,
+          left:
+            loop && scrollLeft + offsetWidth >= scrollWidth
+              ? -scrollLeft
+              : offsetWidth,
+          behavior: 'smooth'
+        })
+      } else {
+        setCurrentPage(p => {
+          const nextPage = p + 1
+          if (nextPage >= page) {
+            return loop ? 0 : p
+          }
+
+          return nextPage
+        })
+      }
+    },
+    [loop, page, railWrapperRef.current, scrollSnap]
+  )
 
   const handlePage = useCallback(e => {
     setCurrentPage(+e.target.getAttribute('data-index'))
@@ -283,10 +316,16 @@ const Carousel = ({
     setIsHover(hover => !hover)
   }, [])
 
+  const handleTouch = useCallback(() => {
+    setIsTouch(touch => !touch)
+  }, [])
+
   return (
     <Container
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
+      onTouchStart={handleTouch}
+      onTouchEnd={handleTouch}
       className={containerClassName}
       style={containerStyle}
     >
@@ -300,6 +339,7 @@ const Carousel = ({
         mobileBreakpoint={mobileBreakpoint}
         scrollSnap={scrollSnap}
         showDots={showDots}
+        ref={railWrapperRef}
       >
         <Rail
           cols={cols}
@@ -338,7 +378,7 @@ const Carousel = ({
         type="next"
         mobileBreakpoint={mobileBreakpoint}
         hidden={hideArrow || (!loop && currentPage === page - 1)}
-        onClick={handleNext}
+        onClick={handleNext.bind(null, false)}
       />
     </Container>
   )
@@ -391,7 +431,9 @@ Carousel.propTypes = {
       breakpoint: PropTypes.number.isRequired,
       cols: PropTypes.number,
       rows: PropTypes.number,
-      gap: PropTypes.number
+      gap: PropTypes.number,
+      loop: PropTypes.bool,
+      autoplay: PropTypes.number
     })
   ),
   mobileBreakpoint: PropTypes.number,

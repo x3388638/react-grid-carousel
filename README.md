@@ -85,9 +85,11 @@ Array of layout settings for each breakbpoint
 #### Setting options
 
 `breakpoint`: Number; Requried; Equals to `max-width` used in media query, in px unit  
-`cols`: Number; Column amount in this breakpoint layout  
-`rows`: Number; Row amount in this breakpoint layout  
-`gap`: Number; Gap size in this breakpoint layout
+`cols`: Number; Column amount in specific breakpoint  
+`rows`: Number; Row amount in specific breakpoint  
+`gap`: Number; Gap size in specific breakpoint
+`autoplay`: Number; autoplay timeout(ms) in specific breakpoint; `undefined` for autoplay disabled
+`loop`: Boolean; Infinite loop in specific breakpoint
 
 e.g.
 
@@ -97,7 +99,9 @@ e.g.
     breakpoint: 800,
     cols: 3,
     rows: 1,
-    gap: 10
+    gap: 10,
+    autoplay: 1000,
+    loop: true
   }
 ]
 ```
