@@ -22,6 +22,7 @@
 - Auto play
 - Enable/Disable `scroll-snap` for each item on mobile device
 - Customized layout (cols & rows) for different breakpoint
+- Customized arrow button
 
 ## Install
 
@@ -75,7 +76,8 @@ const Gallery = () => {
 | dotColorInactive                      | String  | '#ccc'    | Valid css color value for inactive dot                    |
 | [responsiveLayout](#responsiveLayout) | Array   |           | Customized cols & rows on different viewport size         |
 | mobileBreakpoint                      | Number  | 767       | The breakpoint(px) to switch to default mobile layout     |
-| containerClassName                    | String  |           | Classname for carousel container                          |
+| arrowLeft                             | Element |           | Customized left arrow button                              |
+| arrowRight                            | Element |           | Customized left arrow button                              |
 | containerStyle                        | Object  |           | Style object for carousel container                       |
 
 ### responsiveLayout
@@ -84,9 +86,9 @@ Array of layout settings for each breakbpoint
 
 #### Setting options
 
-- `breakpoint`: Number; Requried; Equals to `max-width` used in media query, in px unit  
-- `cols`: Number; Column amount in specific breakpoint  
-- `rows`: Number; Row amount in specific breakpoint  
+- `breakpoint`: Number; Requried; Equals to `max-width` used in media query, in px unit
+- `cols`: Number; Column amount in specific breakpoint
+- `rows`: Number; Row amount in specific breakpoint
 - `gap`: Number; Gap size in specific breakpoint
 - `loop`: Boolean; Infinite loop in specific breakpoint
 - `autoplay`: Number; autoplay timeout(ms) in specific breakpoint; `undefined` for autoplay disabled
@@ -129,7 +131,6 @@ or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
 
 ## TODOs
 
-- [ ] customized arrow button
 - [ ] customized dot
 
 ## LICENSE

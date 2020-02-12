@@ -1,7 +1,34 @@
 import React, { useState, useCallback } from 'react'
+import styled from 'styled-components'
 import Carousel from '../../dist/bundle'
 
 const randomImgUrl = 'https://picsum.photos/{x}/{y}?random='
+
+const CustomBtn = styled.div`
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  color: red;
+  opacity: 0.6;
+  cursor: pointer;
+  top: 50%;
+  z-index: 10;
+  transition: all 0.25s;
+  transform: ${({ type }) =>
+    `translateY(-50%) ${type === 'left' ? 'rotate(180deg)' : ''}`};
+  left: ${({ type }) => (type === 'left' ? '20px' : 'initial')};
+  right: ${({ type }) => (type === 'right' ? '20px' : 'initial')};
+
+  &:hover {
+    background: red;
+    color: #fff;
+    opacity: 0.5;
+  }
+`
 
 const App = () => {
   const [isHover, setIshover] = useState(false)
@@ -73,8 +100,16 @@ const App = () => {
           ))}
         </Carousel>
       </div>
-      <h4 className="thin">Autoplay</h4>
-      <Carousel showDots cols={4} rows={1} loop autoplay={5000}>
+      <h4 className="thin">Autoplay w/ customized arrow button</h4>
+      <Carousel
+        showDots
+        cols={4}
+        rows={1}
+        loop
+        autoplay={5000}
+        arrowLeft={<CustomBtn type="left">➜</CustomBtn>}
+        arrowRight={<CustomBtn type="right">➜</CustomBtn>}
+      >
         {[...Array(20)].map((_, i) => (
           <Carousel.Item key={i}>
             <img

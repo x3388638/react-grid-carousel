@@ -131,8 +131,8 @@ const StyledBtn = styled.div`
   transition: all 0.25s;
   transform: ${({ type }) =>
     `translateY(-50%) ${type === 'left' ? 'rotate(180deg)' : ''}`};
-  left: ${({ type }) => (type === 'left' ? 0 : 'initial')};
-  right: ${({ type }) => (type === 'right' ? 0 : 'initial')};
+  left: ${({ type }) => (type === 'left' ? '20px' : 'initial')};
+  right: ${({ type }) => (type === 'right' ? '20px' : 'initial')};
 
   &:hover {
     background: red;
