@@ -115,6 +115,53 @@ export const ResponsiveLayout = () => {
   )
 }
 
+const StyledBtn = styled.div`
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  color: red;
+  opacity: 0.6;
+  cursor: pointer;
+  top: 50%;
+  z-index: 10;
+  transition: all 0.25s;
+  transform: ${({ type }) =>
+    `translateY(-50%) ${type === 'left' ? 'rotate(180deg)' : ''}`};
+  left: ${({ type }) => (type === 'left' ? 0 : 'initial')};
+  right: ${({ type }) => (type === 'right' ? 0 : 'initial')};
+
+  &:hover {
+    background: red;
+    color: #fff;
+    opacity: 0.5;
+  }
+`
+
+export const CustomArrow = () => {
+  const LeftBtn = <StyledBtn type="left">➜</StyledBtn>
+  const RightBtn = <StyledBtn type="right">➜</StyledBtn>
+
+  return (
+    <Carousel
+      cols={3}
+      rows={1}
+      showDots
+      arrowLeft={LeftBtn}
+      arrowRight={RightBtn}
+    >
+      {[...Array(15)].map((_, i) => (
+        <Carousel.Item key={i}>
+          <Item img={randomImageUrl + i} />
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  )
+}
+
 const Card = styled.div`
   cursor: pointer;
   padding: 5px;
