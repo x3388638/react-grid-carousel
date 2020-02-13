@@ -6,8 +6,6 @@ import smoothscroll from 'smoothscroll-polyfill'
 import useResize from '../hooks/resizeHook'
 const css = require('styled-components').css
 
-smoothscroll.polyfill()
-
 const Container = styled.div`
   position: relative;
 `
@@ -131,6 +129,10 @@ const Carousel = ({
   const railWrapperRef = useRef(null)
   const autoplayIntervalRef = useRef(null)
   const breakpointSetting = useResize(responsiveLayout)
+
+  useEffect(() => {
+    smoothscroll.polyfill()
+  }, [])
 
   useEffect(() => {
     setCols(colsProp)
