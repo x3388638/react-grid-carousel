@@ -23,6 +23,7 @@
 - Enable/Disable `scroll-snap` for each item on mobile device
 - Customized layout (cols & rows) for different breakpoint
 - Customized arrow button
+- Support SSR
 
 ## Install
 
