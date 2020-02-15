@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ArrowButton from './ArrowButton'
 import smoothscroll from 'smoothscroll-polyfill'
-import useResize from '../hooks/resizeHook'
+import useResponsiveLayout from '../hooks/responsiveLayoutHook'
 const css = require('styled-components').css
 
 const Container = styled.div`
@@ -31,12 +31,12 @@ const RailWrapper = styled.div`
 
 const Rail = styled.div`
   display: grid;
-  grid-column-gap: 10px;
+  grid-column-gap: ${({ gap }) => `${gap}px`};
   position: relative;
   transition: left 0.5s cubic-bezier(0.2, 1, 0.3, 1) 0s;
   grid-template-columns: ${({ page }) => `repeat(${page}, 100%)`};
-  left: ${({ currentPage }) =>
-    `calc(${-100 * currentPage}% - ${10 * currentPage}px)`};
+  left: ${({ currentPage, gap }) =>
+    `calc(${-100 * currentPage}% - ${gap * currentPage}px)`};
 
   ${({ mobileBreakpoint }) => css`
     @media screen and (max-width: ${mobileBreakpoint}px) {
@@ -98,6 +98,27 @@ const Item = styled.div`
   scroll-snap-align: ${({ scrollSnap }) => (scrollSnap ? 'center' : '')};
 `
 
+const parseGap = (gap, wrapperWidth = 0) => {
+  let parsed = gap
+
+  if (typeof gap !== 'number') {
+    switch (/\D*$/.exec(gap)[0]) {
+      case 'px':
+        parsed = +gap.replace('px', '')
+        break
+      case '%':
+        parsed = (wrapperWidth * gap.replace('%', '')) / 100
+        break
+      default:
+        parsed = 0
+        console.error(`Doesn't support the provided measurement unit: ${gap}`)
+    }
+  }
+
+  // console.log('parsed gap size in px: ' + parsed)
+  return parsed
+}
+
 const CAROUSEL_ITEM = 'CAROUSEL_ITEM'
 const Carousel = ({
   cols: colsProp = 1,
@@ -123,54 +144,39 @@ const Carousel = ({
   const [isTouch, setIsTouch] = useState(false)
   const [cols, setCols] = useState(colsProp)
   const [rows, setRows] = useState(rowsProp)
-  const [gap, setGap] = useState(gapProp)
+  const [gap, setGap] = useState(0)
   const [loop, setLoop] = useState(loopProp)
   const [autoplay, setAutoplay] = useState(autoplayProp)
   const railWrapperRef = useRef(null)
   const autoplayIntervalRef = useRef(null)
-  const breakpointSetting = useResize(responsiveLayout)
+  const breakpointSetting = useResponsiveLayout(responsiveLayout)
 
   useEffect(() => {
     smoothscroll.polyfill()
   }, [])
 
   useEffect(() => {
-    setCols(colsProp)
-  }, [colsProp])
-
-  useEffect(() => {
-    setRows(rowsProp)
-  }, [rowsProp])
-
-  useEffect(() => {
-    setGap(gapProp)
-  }, [gapProp])
-
-  useEffect(() => {
-    setAutoplay(autoplayProp)
-  }, [autoplayProp])
-
-  useEffect(() => {
-    setLoop(loopProp)
-  }, [loopProp])
-
-  useEffect(() => {
-    if (breakpointSetting) {
-      setCols(breakpointSetting.cols || colsProp)
-      setRows(breakpointSetting.rows || rowsProp)
-      setGap(breakpointSetting.gap || gapProp)
-      setLoop(breakpointSetting.loop || loopProp)
-      setAutoplay(breakpointSetting.autoplay || autoplayProp)
-    } else {
-      setCols(colsProp)
-      setRows(rowsProp)
-      setGap(gapProp)
-      setLoop(loopProp)
-      setAutoplay(autoplayProp)
-    }
+    const railWrapperWidth = railWrapperRef.current
+      ? railWrapperRef.current.offsetWidth
+      : 0
+    // console.log(railWrapperWidth)
+    const { cols, rows, gap, loop, autoplay } = breakpointSetting || {}
+    setCols(cols || colsProp)
+    setRows(rows || rowsProp)
+    setGap(parseGap(gap || gapProp, railWrapperWidth))
+    setLoop(loop || loopProp)
+    setAutoplay(autoplay || autoplayProp)
 
     setCurrentPage(0)
-  }, [breakpointSetting, colsProp, rowsProp, gapProp, loopProp, autoplayProp])
+  }, [
+    breakpointSetting,
+    colsProp,
+    rowsProp,
+    gapProp,
+    loopProp,
+    autoplayProp,
+    railWrapperRef.current
+  ])
 
   const itemList = useMemo(
     () =>
@@ -376,17 +382,14 @@ const numberValidator = (props, propName, componentName, type) => {
 
 Carousel.propTypes = {
   cols: (...args) => {
-    args.splice(3, 0, 'positive')
+    args.splice(3, 0, 'positive') // FIXME
     return numberValidator(...args)
   },
   rows: (...args) => {
-    args.splice(3, 0, 'positive')
+    args.splice(3, 0, 'positive') // FIXME
     return numberValidator(...args)
   },
-  gap: (...args) => {
-    args.splice(3, 0, 'non-negative')
-    return numberValidator(...args)
-  },
+  gap: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   loop: PropTypes.bool,
   scrollSnap: PropTypes.bool,
   hideArrow: PropTypes.bool,
