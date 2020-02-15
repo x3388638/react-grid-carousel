@@ -63,23 +63,23 @@ const Gallery = () => {
 
 ## Props
 
-| Prop                                  | Type    | Default   | Description                                               |
-| ------------------------------------- | ------- | --------- | --------------------------------------------------------- |
-| cols                                  | Number  | 1         | Column amount rendered per page                           |
-| rows                                  | Number  | 1         | Row amount rendered per page                              |
-| gap                                   | Number  | 10        | Margin (grid-gap) between each item/grid (px)             |
-| loop                                  | Boolean | false     | Infinite loop or not                                      |
-| scrollSnap                            | Boolean | true      | `true` for applying `scroll-snap` to items on mobile      |
-| hideArrow                             | Boolean | false     | Show/hide the arrow prev/next buttons                     |
-| showDots                              | Boolean | false     | Show dots indicate the current page on desktop mode       |
-| autoplay                              | Number  |           | Autoplay timeout in ms; `undefined` for autoplay disabled |
-| dotColorActive                        | String  | '#795548' | Valid css color value for active dot                      |
-| dotColorInactive                      | String  | '#ccc'    | Valid css color value for inactive dot                    |
-| [responsiveLayout](#responsiveLayout) | Array   |           | Customized cols & rows on different viewport size         |
-| mobileBreakpoint                      | Number  | 767       | The breakpoint(px) to switch to default mobile layout     |
-| arrowLeft                             | Element |           | Customized left arrow button                              |
-| arrowRight                            | Element |           | Customized left arrow button                              |
-| containerStyle                        | Object  |           | Style object for carousel container                       |
+| Prop                                  | Type             | Default   | Description                                                              |
+| ------------------------------------- | ---------------- | --------- | ------------------------------------------------------------------------ |
+| cols                                  | Number           | 1         | Column amount rendered per page                                          |
+| rows                                  | Number           | 1         | Row amount rendered per page                                             |
+| gap                                   | Number \| String | 10        | Margin (grid-gap) for each item/grid in px or %, pass Number turns to px |
+| loop                                  | Boolean          | false     | Infinite loop or not                                                     |
+| scrollSnap                            | Boolean          | true      | `true` for applying `scroll-snap` to items on mobile                     |
+| hideArrow                             | Boolean          | false     | Show/hide the arrow prev/next buttons                                    |
+| showDots                              | Boolean          | false     | Show dots indicate the current page on desktop mode                      |
+| autoplay                              | Number           |           | Autoplay timeout in ms; `undefined` for autoplay disabled                |
+| dotColorActive                        | String           | '#795548' | Valid css color value for active dot                                     |
+| dotColorInactive                      | String           | '#ccc'    | Valid css color value for inactive dot                                   |
+| [responsiveLayout](#responsiveLayout) | Array            |           | Customized cols & rows on different viewport size                        |
+| mobileBreakpoint                      | Number           | 767       | The breakpoint(px) to switch to default mobile layout                    |
+| arrowLeft                             | Element          |           | Customized left arrow button                                             |
+| arrowRight                            | Element          |           | Customized left arrow button                                             |
+| containerStyle                        | Object           |           | Style object for carousel container                                      |
 
 ### responsiveLayout
 
@@ -90,7 +90,7 @@ Array of layout settings for each breakbpoint
 - `breakpoint`: Number; Requried; Equals to `max-width` used in media query, in px unit
 - `cols`: Number; Column amount in specific breakpoint
 - `rows`: Number; Row amount in specific breakpoint
-- `gap`: Number; Gap size in specific breakpoint
+- `gap`: Number | String; Gap size in specific breakpoint
 - `loop`: Boolean; Infinite loop in specific breakpoint
 - `autoplay`: Number; autoplay timeout(ms) in specific breakpoint; `undefined` for autoplay disabled
 

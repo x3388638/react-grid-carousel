@@ -105,6 +105,7 @@ const App = () => {
         showDots
         cols={4}
         rows={1}
+        gap="2%"
         loop
         autoplay={5000}
         arrowLeft={<CustomBtn type="left">➜</CustomBtn>}

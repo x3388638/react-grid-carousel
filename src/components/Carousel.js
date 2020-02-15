@@ -138,6 +138,24 @@ const Carousel = ({
     smoothscroll.polyfill()
   }, [])
 
+  useEffect(() => {
+    const { cols, rows, gap, loop, autoplay } = breakpointSetting || {}
+    setCols(cols || colsProp)
+    setRows(rows || rowsProp)
+    setGap(parseGap(gap || gapProp))
+    setLoop(loop || loopProp)
+    setAutoplay(autoplay || autoplayProp)
+    setCurrentPage(0)
+  }, [
+    breakpointSetting,
+    colsProp,
+    rowsProp,
+    gapProp,
+    loopProp,
+    autoplayProp,
+    parseGap
+  ])
+
   const handleRailWrapperResize = useCallback(() => {
     railWrapperRef.current &&
       setRailWrapperWidth(railWrapperRef.current.offsetWidth)
@@ -196,24 +214,6 @@ const Carousel = ({
     ]
   )
 
-  useEffect(() => {
-    const { cols, rows, gap, loop, autoplay } = breakpointSetting || {}
-    setCols(cols || colsProp)
-    setRows(rows || rowsProp)
-    setGap(parseGap(gap || gapProp))
-    setLoop(loop || loopProp)
-    setAutoplay(autoplay || autoplayProp)
-    setCurrentPage(0)
-  }, [
-    breakpointSetting,
-    colsProp,
-    rowsProp,
-    gapProp,
-    loopProp,
-    autoplayProp,
-    parseGap
-  ])
-
   const itemList = useMemo(
     () =>
       React.Children.toArray(children).filter(
@@ -245,33 +245,6 @@ const Carousel = ({
 
   const page = Math.ceil(itemList.length / itemAmountPerSet)
 
-  const startAutoplayInterval = useCallback(() => {
-    if (autoplayIntervalRef.current === null && typeof autoplay === 'number') {
-      autoplayIntervalRef.current = setInterval(() => {
-        handleNext(window.innerWidth <= mobileBreakpoint)
-      }, autoplay)
-    }
-  }, [autoplay, autoplayIntervalRef, handleNext, mobileBreakpoint])
-
-  useEffect(() => {
-    startAutoplayInterval()
-
-    return () => {
-      if (autoplayIntervalRef.current !== null) {
-        clearInterval(autoplayIntervalRef.current)
-      }
-    }
-  }, [startAutoplayInterval, autoplayIntervalRef])
-
-  useEffect(() => {
-    if (isHover || isTouch) {
-      clearInterval(autoplayIntervalRef.current)
-      autoplayIntervalRef.current = null
-    } else {
-      startAutoplayInterval()
-    }
-  }, [isHover, isTouch, autoplayIntervalRef, startAutoplayInterval])
-
   const handlePrev = useCallback(() => {
     setCurrentPage(p => {
       const prevPage = p - 1
@@ -298,7 +271,9 @@ const Carousel = ({
             loop && scrollLeft + offsetWidth >= scrollWidth
               ? -scrollLeft
               : scrollLeft === 0
-              ? (offsetWidth - gap) * 0.9
+              ? gap +
+                (offsetWidth - gap) * 0.9 -
+                (offsetWidth * 0.1 - gap * 1.1) / 2
               : (offsetWidth - gap) * 0.9 + gap,
           behavior: 'smooth'
         })
@@ -315,6 +290,34 @@ const Carousel = ({
     },
     [loop, page, gap, railWrapperRef, scrollSnap]
   )
+
+  const startAutoplayInterval = useCallback(() => {
+    if (autoplayIntervalRef.current === null && typeof autoplay === 'number') {
+      autoplayIntervalRef.current = setInterval(() => {
+        handleNext(window.innerWidth <= mobileBreakpoint)
+      }, autoplay)
+    }
+  }, [autoplay, autoplayIntervalRef, handleNext, mobileBreakpoint])
+
+  useEffect(() => {
+    startAutoplayInterval()
+
+    return () => {
+      if (autoplayIntervalRef.current !== null) {
+        clearInterval(autoplayIntervalRef.current)
+        autoplayIntervalRef.current = null
+      }
+    }
+  }, [startAutoplayInterval, autoplayIntervalRef])
+
+  useEffect(() => {
+    if (isHover || isTouch) {
+      clearInterval(autoplayIntervalRef.current)
+      autoplayIntervalRef.current = null
+    } else {
+      startAutoplayInterval()
+    }
+  }, [isHover, isTouch, autoplayIntervalRef, startAutoplayInterval])
 
   const handlePage = useCallback(e => {
     setCurrentPage(+e.target.getAttribute('data-index'))
@@ -396,9 +399,9 @@ const Carousel = ({
 
 const positiveNumberValidator = (props, propName, componentName) => {
   const prop = props[propName]
-  if (typeof prop !== 'number' || prop <= 0) {
+  if ((prop !== undefined && typeof prop !== 'number') || prop <= 0) {
     return new Error(
-      `Invalid prop \`${propName}\` supplied to \`${componentName}\`. expected positive \`number\``
+      `Invalid prop \`${propName}\`: ${props[propName]} supplied to \`${componentName}\`. expected positive \`number\``
     )
   }
 }
@@ -417,8 +420,8 @@ Carousel.propTypes = {
   responsiveLayout: PropTypes.arrayOf(
     PropTypes.shape({
       breakpoint: PropTypes.number.isRequired,
-      cols: PropTypes.number,
-      rows: PropTypes.number,
+      cols: positiveNumberValidator,
+      rows: positiveNumberValidator,
       gap: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       loop: PropTypes.bool,
       autoplay: PropTypes.number
