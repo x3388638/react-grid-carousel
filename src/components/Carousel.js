@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import ArrowButton from './ArrowButton'
 import smoothscroll from 'smoothscroll-polyfill'
 import useResponsiveLayout from '../hooks/responsiveLayoutHook'
+import { addResizeHandler, removeResizeHandler } from '../utils/resizeListener'
 const css = require('styled-components').css
 
 const Container = styled.div`
@@ -98,27 +99,6 @@ const Item = styled.div`
   scroll-snap-align: ${({ scrollSnap }) => (scrollSnap ? 'center' : '')};
 `
 
-const parseGap = (gap, wrapperWidth = 0) => {
-  let parsed = gap
-
-  if (typeof gap !== 'number') {
-    switch (/\D*$/.exec(gap)[0]) {
-      case 'px':
-        parsed = +gap.replace('px', '')
-        break
-      case '%':
-        parsed = (wrapperWidth * gap.replace('%', '')) / 100
-        break
-      default:
-        parsed = 0
-        console.error(`Doesn't support the provided measurement unit: ${gap}`)
-    }
-  }
-
-  // console.log('parsed gap size in px: ' + parsed)
-  return parsed
-}
-
 const CAROUSEL_ITEM = 'CAROUSEL_ITEM'
 const Carousel = ({
   cols: colsProp = 1,
@@ -147,26 +127,82 @@ const Carousel = ({
   const [gap, setGap] = useState(0)
   const [loop, setLoop] = useState(loopProp)
   const [autoplay, setAutoplay] = useState(autoplayProp)
+  const [railWrapperWidth, setRailWrapperWidth] = useState(0)
+  const [hasSetResizeHandler, setHasSetResizeHandler] = useState(false)
   const railWrapperRef = useRef(null)
   const autoplayIntervalRef = useRef(null)
   const breakpointSetting = useResponsiveLayout(responsiveLayout)
+  const randomKey = useMemo(() => `${Math.random()}-${Math.random()}`, [])
 
   useEffect(() => {
     smoothscroll.polyfill()
   }, [])
 
+  const handleRailWrapperResize = useCallback(() => {
+    railWrapperRef.current &&
+      setRailWrapperWidth(railWrapperRef.current.offsetWidth)
+  }, [railWrapperRef])
+
+  const setResizeHandler = useCallback(() => {
+    addResizeHandler(`gapCalculator-${randomKey}`, handleRailWrapperResize)
+    setHasSetResizeHandler(true)
+  }, [randomKey, handleRailWrapperResize])
+
+  const rmResizeHandler = useCallback(() => {
+    removeResizeHandler(`gapCalculator-${randomKey}`)
+    setHasSetResizeHandler(false)
+  }, [randomKey])
+
+  const parseGap = useCallback(
+    gap => {
+      let parsed = gap
+      let shouldSetResizeHandler = false
+
+      if (typeof gap !== 'number') {
+        switch (/\D*$/.exec(gap)[0]) {
+          case 'px': {
+            parsed = +gap.replace('px', '')
+            break
+          }
+          case '%': {
+            let wrapperWidth =
+              railWrapperWidth || railWrapperRef.current
+                ? railWrapperRef.current.offsetWidth
+                : 0
+
+            parsed = (wrapperWidth * gap.replace('%', '')) / 100
+            shouldSetResizeHandler = true
+            break
+          }
+          default: {
+            parsed = 0
+            console.error(
+              `Doesn't support the provided measurement unit: ${gap}`
+            )
+          }
+        }
+      }
+
+      shouldSetResizeHandler && !hasSetResizeHandler && setResizeHandler()
+      !shouldSetResizeHandler && hasSetResizeHandler && rmResizeHandler()
+      return parsed
+    },
+    [
+      railWrapperWidth,
+      railWrapperRef,
+      hasSetResizeHandler,
+      setResizeHandler,
+      rmResizeHandler
+    ]
+  )
+
   useEffect(() => {
-    const railWrapperWidth = railWrapperRef.current
-      ? railWrapperRef.current.offsetWidth
-      : 0
-    // console.log(railWrapperWidth)
     const { cols, rows, gap, loop, autoplay } = breakpointSetting || {}
     setCols(cols || colsProp)
     setRows(rows || rowsProp)
-    setGap(parseGap(gap || gapProp, railWrapperWidth))
+    setGap(parseGap(gap || gapProp))
     setLoop(loop || loopProp)
     setAutoplay(autoplay || autoplayProp)
-
     setCurrentPage(0)
   }, [
     breakpointSetting,
@@ -175,7 +211,7 @@ const Carousel = ({
     gapProp,
     loopProp,
     autoplayProp,
-    railWrapperRef.current
+    parseGap
   ])
 
   const itemList = useMemo(
@@ -215,7 +251,7 @@ const Carousel = ({
         handleNext(window.innerWidth <= mobileBreakpoint)
       }, autoplay)
     }
-  }, [autoplay, autoplayIntervalRef, handleNext])
+  }, [autoplay, autoplayIntervalRef, handleNext, mobileBreakpoint])
 
   useEffect(() => {
     startAutoplayInterval()
@@ -277,7 +313,7 @@ const Carousel = ({
         })
       }
     },
-    [loop, page, gap, railWrapperRef.current, scrollSnap]
+    [loop, page, gap, railWrapperRef, scrollSnap]
   )
 
   const handlePage = useCallback(e => {
@@ -358,37 +394,18 @@ const Carousel = ({
   )
 }
 
-const numberValidator = (props, propName, componentName, type) => {
-  PropTypes.checkPropTypes(
-    {
-      [propName]: PropTypes.number
-    },
-    props,
-    propName,
-    componentName
-  )
-
-  if (props[propName] <= 0) {
-    if (
-      type === 'positive' ||
-      (props[propName] < 0 && type === 'non-negative')
-    ) {
-      return new Error(
-        `Invalid prop \`${propName}\` supplied to \`${componentName}\`. expected ${type} \`number\``
-      )
-    }
+const positiveNumberValidator = (props, propName, componentName) => {
+  const prop = props[propName]
+  if (typeof prop !== 'number' || prop <= 0) {
+    return new Error(
+      `Invalid prop \`${propName}\` supplied to \`${componentName}\`. expected positive \`number\``
+    )
   }
 }
 
 Carousel.propTypes = {
-  cols: (...args) => {
-    args.splice(3, 0, 'positive') // FIXME
-    return numberValidator(...args)
-  },
-  rows: (...args) => {
-    args.splice(3, 0, 'positive') // FIXME
-    return numberValidator(...args)
-  },
+  cols: positiveNumberValidator,
+  rows: positiveNumberValidator,
   gap: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   loop: PropTypes.bool,
   scrollSnap: PropTypes.bool,
@@ -402,7 +419,7 @@ Carousel.propTypes = {
       breakpoint: PropTypes.number.isRequired,
       cols: PropTypes.number,
       rows: PropTypes.number,
-      gap: PropTypes.number,
+      gap: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       loop: PropTypes.bool,
       autoplay: PropTypes.number
     })

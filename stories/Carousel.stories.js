@@ -149,6 +149,22 @@ export const CustomArrow = () => {
     <Carousel
       cols={3}
       rows={1}
+      gap="1%"
+      responsiveLayout={[
+        {
+          breakpoint: 999,
+          gap: 5
+        },
+        {
+          breakpoint: 899,
+          gap: '15%'
+        },
+        {
+          breakpoint: 799,
+          gap: '15px'
+        }
+      ]}
+      mobileBreakpoint={699}
       showDots
       arrowLeft={LeftBtn}
       arrowRight={RightBtn}

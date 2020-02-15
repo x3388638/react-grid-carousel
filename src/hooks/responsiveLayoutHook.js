@@ -1,9 +1,9 @@
 import { useEffect, useCallback, useState, useMemo } from 'react'
-import debounce from 'lodash.debounce'
 import { addResizeHandler, removeResizeHandler } from '../utils/resizeListener'
 
 const useResponsiveLayout = (breakpointList = []) => {
   const [currentBreakpointSetting, setCurrentBreakpointSetting] = useState()
+  const random = useMemo(() => `${Math.random()}-${Math.random()}`, [])
 
   const sortedBreakpointList = useMemo(
     () =>
@@ -31,13 +31,13 @@ const useResponsiveLayout = (breakpointList = []) => {
   useEffect(() => {
     if (breakpointList.length) {
       handleResize()
-      addResizeHandler('responsiveLayout', handleResize)
+      addResizeHandler(`responsiveLayout-${random}`, handleResize)
 
       return () => {
-        removeResizeHandler('responsiveLayout')
+        removeResizeHandler(`responsiveLayout-${random}`)
       }
     }
-  }, [breakpointList, handleResize])
+  }, [breakpointList, handleResize, random])
 
   return currentBreakpointSetting
 }
