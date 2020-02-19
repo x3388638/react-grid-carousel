@@ -30,6 +30,15 @@ const CustomBtn = styled.div`
   }
 `
 
+const CustomDot = styled.span`
+  display: inline-block;
+  height: ${({ isActive }) => (isActive ? '8px' : '6px')};
+  width: ${({ isActive }) => (isActive ? '8px' : '6px')};
+  opacity: ${({ isActive }) => (isActive ? '0.8' : '0.5')};
+  background: red;
+  transition: all 0.2s;
+`
+
 const App = () => {
   const [isHover, setIshover] = useState(false)
 
@@ -100,7 +109,7 @@ const App = () => {
           ))}
         </Carousel>
       </div>
-      <h4 className="thin">Autoplay w/ customized arrow button</h4>
+      <h4 className="thin">Autoplay w/ customized arrow buttons and dots</h4>
       <Carousel
         showDots
         cols={4}
@@ -110,6 +119,7 @@ const App = () => {
         autoplay={5000}
         arrowLeft={<CustomBtn type="left">➜</CustomBtn>}
         arrowRight={<CustomBtn type="right">➜</CustomBtn>}
+        dot={CustomDot}
       >
         {[...Array(20)].map((_, i) => (
           <Carousel.Item key={i}>

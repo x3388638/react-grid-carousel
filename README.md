@@ -19,10 +19,11 @@
 - Support any component as a item to put into grid
 - Show/hide dots
 - Show/hide arrow buttons
-- Auto play
+- Autoplay
 - Enable/Disable `scroll-snap` for each item on mobile device
 - Customized layout (cols & rows) for different breakpoint
 - Customized arrow button
+- Customized dots
 - Support SSR
 
 ## Install
@@ -63,23 +64,24 @@ const Gallery = () => {
 
 ## Props
 
-| Prop                                  | Type             | Default   | Description                                                              |
-| ------------------------------------- | ---------------- | --------- | ------------------------------------------------------------------------ |
-| cols                                  | Number           | 1         | Column amount rendered per page                                          |
-| rows                                  | Number           | 1         | Row amount rendered per page                                             |
-| gap                                   | Number \| String | 10        | Margin (grid-gap) for each item/grid in px or %, pass Number turns to px |
-| loop                                  | Boolean          | false     | Infinite loop or not                                                     |
-| scrollSnap                            | Boolean          | true      | `true` for applying `scroll-snap` to items on mobile                     |
-| hideArrow                             | Boolean          | false     | Show/hide the arrow prev/next buttons                                    |
-| showDots                              | Boolean          | false     | Show dots indicate the current page on desktop mode                      |
-| autoplay                              | Number           |           | Autoplay timeout in ms; `undefined` for autoplay disabled                |
-| dotColorActive                        | String           | '#795548' | Valid css color value for active dot                                     |
-| dotColorInactive                      | String           | '#ccc'    | Valid css color value for inactive dot                                   |
-| [responsiveLayout](#responsiveLayout) | Array            |           | Customized cols & rows on different viewport size                        |
-| mobileBreakpoint                      | Number           | 767       | The breakpoint(px) to switch to default mobile layout                    |
-| arrowLeft                             | Element          |           | Customized left arrow button                                             |
-| arrowRight                            | Element          |           | Customized left arrow button                                             |
-| containerStyle                        | Object           |           | Style object for carousel container                                      |
+| Prop                                  | Type             | Default   | Description                                                                         |
+| ------------------------------------- | ---------------- | --------- | ----------------------------------------------------------------------------------- |
+| cols                                  | Number           | 1         | Column amount rendered per page                                                     |
+| rows                                  | Number           | 1         | Row amount rendered per page                                                        |
+| gap                                   | Number \| String | 10        | Margin (grid-gap) for each item/grid in px or %, passed Number will turn to px unit |
+| loop                                  | Boolean          | false     | Infinite loop or not                                                                |
+| scrollSnap                            | Boolean          | true      | `true` for applying `scroll-snap` to items on mobile                                |
+| hideArrow                             | Boolean          | false     | Show/hide the arrow prev/next buttons                                               |
+| showDots                              | Boolean          | false     | Show dots indicate the current page on desktop mode                                 |
+| autoplay                              | Number           |           | Autoplay timeout in ms; `undefined` for autoplay disabled                           |
+| dotColorActive                        | String           | '#795548' | Valid css color value for active dot                                                |
+| dotColorInactive                      | String           | '#ccc'    | Valid css color value for inactive dot                                              |
+| [responsiveLayout](#responsiveLayout) | Array            |           | Customized cols & rows on different viewport size                                   |
+| mobileBreakpoint                      | Number           | 767       | The breakpoint(px) to switch to default mobile layout                               |
+| arrowLeft                             | Element          |           | Customized left arrow button                                                        |
+| arrowRight                            | Element          |           | Customized left arrow button                                                        |
+| [dot](#dot)                           | Element          |           | Customized dot component with prop `isActive`                                       |
+| containerStyle                        | Object           |           | Style object for carousel container                                                 |
 
 ### responsiveLayout
 
@@ -109,6 +111,27 @@ e.g.
 ]
 ```
 
+### dot
+
+#### Example
+
+```javascript
+// your custom dot component with prop `isActive`
+const MyDot = ({ isActive }) => (
+  <span
+    style={{
+      display: 'inline-block',
+      height: isActive ? '8px' : '5px',
+      width: isActive ? '8px' : '5px',
+      background: '#1890ff'
+    }}
+  ></span>
+)
+
+// set custom dot
+<Carousel dot={MyDot} />
+```
+
 ## Example
 
 Storybook (Don't forget to try on different viewport size)
@@ -129,10 +152,6 @@ $ npm run dev
 ```
 
 or visit https://react-grid-carousel.now.sh/#use-case-in-real-world
-
-## TODOs
-
-- [ ] customized dot
 
 ## LICENSE
 
