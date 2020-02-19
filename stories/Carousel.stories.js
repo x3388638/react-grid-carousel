@@ -141,7 +141,15 @@ const StyledBtn = styled.div`
   }
 `
 
-export const CustomArrow = () => {
+const CustomDot = styled.span`
+  display: inline-block;
+  height: ${({ isActive }) => (isActive ? '8px' : '5px')};
+  width: ${({ isActive }) => (isActive ? '8px' : '5px')};
+  background: ${({ isActive }) => (isActive ? '#1890ff' : '#1890ff78')};
+  transition: all 0.2s;
+`
+
+export const CustomArrowAndDot = () => {
   const LeftBtn = <StyledBtn type="left">➜</StyledBtn>
   const RightBtn = <StyledBtn type="right">➜</StyledBtn>
 
@@ -168,6 +176,7 @@ export const CustomArrow = () => {
       showDots
       arrowLeft={LeftBtn}
       arrowRight={RightBtn}
+      dot={CustomDot}
     >
       {[...Array(15)].map((_, i) => (
         <Carousel.Item key={i}>

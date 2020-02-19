@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ArrowButton from './ArrowButton'
+import Dot from './Dot'
 import smoothscroll from 'smoothscroll-polyfill'
 import useResponsiveLayout from '../hooks/responsiveLayoutHook'
 import { addResizeHandler, removeResizeHandler } from '../utils/resizeListener'
@@ -70,8 +71,11 @@ const ItemSet = styled.div`
   `}
 `
 
-const DotContainer = styled.div`
+const Dots = styled.div`
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   bottom: -12px;
   height: 10px;
   width: 100%;
@@ -83,16 +87,6 @@ const DotContainer = styled.div`
       display: none;
     }
   `}
-`
-
-const Dot = styled.div`
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
-  background: ${({ color }) => color};
 `
 
 const Item = styled.div`
@@ -115,6 +109,7 @@ const Carousel = ({
   mobileBreakpoint = 767,
   arrowLeft,
   arrowRight,
+  dot,
   containerClassName = '',
   containerStyle = {},
   children
@@ -319,8 +314,8 @@ const Carousel = ({
     }
   }, [isHover, isTouch, autoplayIntervalRef, startAutoplayInterval])
 
-  const handlePage = useCallback(e => {
-    setCurrentPage(+e.target.getAttribute('data-index'))
+  const turnToPage = useCallback(page => {
+    setCurrentPage(page)
   }, [])
 
   const handleHover = useCallback(() => {
@@ -375,16 +370,19 @@ const Carousel = ({
         </Rail>
       </RailWrapper>
       {showDots && (
-        <DotContainer mobileBreakpoint={mobileBreakpoint}>
+        <Dots mobileBreakpoint={mobileBreakpoint}>
           {[...Array(page)].map((_, i) => (
             <Dot
               key={i}
-              data-index={i}
-              onClick={handlePage}
-              color={i === currentPage ? dotColorActive : dotColorInactive}
+              index={i}
+              isActive={i === currentPage}
+              dotColorInactive={dotColorInactive}
+              dotColorActive={dotColorActive}
+              dot={dot}
+              onClick={turnToPage}
             />
           ))}
-        </DotContainer>
+        </Dots>
       )}
       <ArrowButton
         type="next"
@@ -434,6 +432,11 @@ Carousel.propTypes = {
     PropTypes.elementType
   ]),
   arrowRight: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+    PropTypes.elementType
+  ]),
+  dot: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.element,
     PropTypes.elementType

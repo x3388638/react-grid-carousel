@@ -7,7 +7,7 @@ const handleResize = debounce(e => {
       handler(e)
     }
   })
-}, 166)
+}, 16)
 
 const setupListener = () => {
   window.addEventListener('resize', handleResize)
