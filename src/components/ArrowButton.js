@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-const css = require('styled-components').css
 
 const ButtonWrapper = styled.div`
-  ${({ mobileBreakpoint }) => css`
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-      display: none;
-    }
-  `}
+  @media screen and (max-width: ${({ mobileBreakpoint }) =>
+      mobileBreakpoint}px) {
+    display: none;
+  }
 `
 
 const Button = styled.span`
@@ -18,7 +16,7 @@ const Button = styled.span`
   width: 35px;
   background: #fff;
   border-radius: 50%;
-  box-shadow: 0 0 5px 0px #0009;
+  box-shadow: 0 0 5px 0 #0009;
   z-index: 10;
   cursor: pointer;
   font-size: 10px;

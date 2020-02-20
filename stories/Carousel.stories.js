@@ -190,6 +190,7 @@ export const CustomArrowAndDot = () => {
 const Card = styled.div`
   cursor: pointer;
   padding: 5px;
+
   &:hover {
     background: #f3f3f3;
   }
@@ -248,7 +249,7 @@ const NewsItem = styled.div`
     border-radius: 8px;
   }
 
-  span {
+  div {
     font-size: 12px;
   }
 
@@ -293,9 +294,9 @@ export const NewsCarousel = () => {
             ) : (
               <NewsItem>
                 <img src={randomImageUrl + i} />
-                <span>
+                <div>
                   {`Trump downplays soldiers' head injuries in Iraq attacks`}
-                </span>
+                </div>
               </NewsItem>
             )}
           </Carousel.Item>

@@ -35,6 +35,7 @@ const HotelRow = styled.div`
 
 const CarouselWapeer = styled.div`
   width: 340px;
+
   @media screen and (max-width: 767px) {
     margin-bottom: 20px;
     width: 100%;

@@ -12,7 +12,6 @@ const DotDefault = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-
   background: ${({ color }) => color};
 `
 

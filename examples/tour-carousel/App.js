@@ -36,7 +36,7 @@ const City = styled.div`
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 5px 5px 0px #666;
+    box-shadow: 0 5px 5px 0 #666;
   }
 `
 

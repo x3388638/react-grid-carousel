@@ -19,6 +19,7 @@
     "build": "rollup -c",
     "prettier:check": "prettier --check ./**/*.{js,json,css} && echo \"✅ Prettier validated\"",
     "prettier:write": "prettier --write ./**/*.{js,json,css}",
+    "stylelint": "stylelint ./{src,examples,stories}/**/*.js && echo \"✅ Stylelint validated\"",
     "lint": "eslint './**/*.js'",
     "lint:fix": "eslint './**/*.js' --fix",
     "storybook": "start-storybook -p 6006",
@@ -56,6 +57,10 @@
     "react-dom": "^16.12.0",
     "rollup": "^1.29.1",
     "rollup-plugin-babel": "^4.3.3",
+    "stylelint": "^13.2.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
@@ -69,6 +74,7 @@
       "npm run prettier:check"
     ],
     "*.js": [
+      "npm run stylelint",
       "npm run lint"
     ]
   },

@@ -6,7 +6,6 @@ import Dot from './Dot'
 import smoothscroll from 'smoothscroll-polyfill'
 import useResponsiveLayout from '../hooks/responsiveLayoutHook'
 import { addResizeHandler, removeResizeHandler } from '../utils/resizeListener'
-const css = require('styled-components').css
 
 const Container = styled.div`
   position: relative;
@@ -16,19 +15,17 @@ const RailWrapper = styled.div`
   overflow: hidden;
   margin: ${({ showDots }) => (showDots ? '0 20px 15px 20px' : '0 20px')};
 
-  ${({ mobileBreakpoint }) => css`
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-      overflow-x: auto;
-      margin: 0;
-      scroll-snap-type: ${({ scrollSnap }) =>
-        scrollSnap ? 'x mandatory' : ''};
-      scrollbar-width: none;
+  @media screen and (max-width: ${({ mobileBreakpoint }) =>
+      mobileBreakpoint}px) {
+    overflow-x: auto;
+    margin: 0;
+    scroll-snap-type: ${({ scrollSnap }) => (scrollSnap ? 'x mandatory' : '')};
+    scrollbar-width: none;
 
-      &::-webkit-scrollbar {
-        display: none;
-      }
+    &::-webkit-scrollbar {
+      display: none;
     }
-  `}
+  }
 `
 
 const Rail = styled.div`
@@ -40,15 +37,14 @@ const Rail = styled.div`
   left: ${({ currentPage, gap }) =>
     `calc(${-100 * currentPage}% - ${gap * currentPage}px)`};
 
-  ${({ mobileBreakpoint }) => css`
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-      padding-left: ${({ gap }) => `${gap}px`};
-      grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
-      grid-column-gap: ${({ cols, rows, gap }) =>
-        `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
-      left: 0;
-    }
-  `}
+  @media screen and (max-width: ${({ mobileBreakpoint }) =>
+      mobileBreakpoint}px) {
+    padding-left: ${({ gap }) => `${gap}px`};
+    grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
+    grid-column-gap: ${({ cols, rows, gap }) =>
+      `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
+    left: 0;
+  }
 `
 
 const ItemSet = styled.div`
@@ -57,18 +53,17 @@ const ItemSet = styled.div`
   grid-template-rows: ${({ rows }) => `repeat(${rows}, 1fr)`};
   grid-gap: ${({ gap }) => `${gap}px`};
 
-  ${({ mobileBreakpoint }) => css`
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-      grid-template-columns: ${({ cols, rows }) =>
-        `repeat(${cols * rows}, 100%)`};
-      grid-template-rows: 1fr;
+  @media screen and (max-width: ${({ mobileBreakpoint }) =>
+      mobileBreakpoint}px) {
+    grid-template-columns: ${({ cols, rows }) =>
+      `repeat(${cols * rows}, 100%)`};
+    grid-template-rows: 1fr;
 
-      &:last-of-type > ${Item}:last-of-type {
-        padding-right: ${({ gap }) => `${gap}px`};
-        margin-right: ${({ gap }) => `-${gap}px`};
-      }
+    &:last-of-type > ${/* sc-sel */ Item}:last-of-type {
+      padding-right: ${({ gap }) => `${gap}px`};
+      margin-right: ${({ gap }) => `-${gap}px`};
     }
-  `}
+  }
 `
 
 const Dots = styled.div`
@@ -82,11 +77,10 @@ const Dots = styled.div`
   line-height: 10px;
   text-align: center;
 
-  ${({ mobileBreakpoint }) => css`
-    @media screen and (max-width: ${mobileBreakpoint}px) {
-      display: none;
-    }
-  `}
+  @media screen and (max-width: ${({ mobileBreakpoint }) =>
+      mobileBreakpoint}px) {
+    display: none;
+  }
 `
 
 const Item = styled.div`

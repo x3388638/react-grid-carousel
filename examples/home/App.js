@@ -32,9 +32,10 @@ const CustomBtn = styled.div`
 
 const CustomDot = styled.span`
   display: inline-block;
-  height: ${({ isActive }) => (isActive ? '8px' : '6px')};
-  width: ${({ isActive }) => (isActive ? '8px' : '6px')};
+  height: 8px;
+  width: ${({ isActive }) => (isActive ? '16px' : '8px')};
   opacity: ${({ isActive }) => (isActive ? '0.8' : '0.5')};
+  border-radius: 8px;
   background: red;
   transition: all 0.2s;
 `
