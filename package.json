@@ -17,9 +17,9 @@
   "scripts": {
     "dev": "npm run build && webpack-dev-server --config examples/webpack.config.js",
     "build": "rollup -c",
-    "prettier:check": "prettier --check ./**/*.{js,json,css} && echo \"✅ Prettier validated\"",
-    "prettier:write": "prettier --write ./**/*.{js,json,css}",
-    "stylelint": "stylelint ./{src,examples,stories}/**/*.js && echo \"✅ Stylelint validated\"",
+    "prettier:check": "prettier --check './**/*.{js,json,css}' && echo \"✅ Prettier validated\"",
+    "prettier:write": "prettier --write './**/*.{js,json,css}'",
+    "stylelint": "stylelint './{src,examples,stories}/**/*.js' && echo \"✅ Stylelint validated\"",
     "lint": "eslint './**/*.js'",
     "lint:fix": "eslint './**/*.js' --fix",
     "storybook": "start-storybook -p 6006",
