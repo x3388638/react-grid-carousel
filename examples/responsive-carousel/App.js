@@ -12,7 +12,46 @@ const Container = styled.div`
 
 const Row = styled.div`
   max-width: 1100px;
+  padding: 0 50px;
   margin: 50px auto;
+
+  @media screen and (max-width: 670px) {
+    padding: 0;
+  }
+`
+
+const ArrowBtn = styled.span`
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: ${({ type }) => (type === 'right' ? '-40px' : 'unset')};
+  left: ${({ type }) => (type === 'left' ? '-40px' : 'unset')};
+  width: 45px;
+  height: 45px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: ${({ type }) =>
+      type === 'right'
+        ? 'translate(-75%, -50%) rotate(45deg)'
+        : 'translate(-25%, -50%) rotate(-135deg)'};
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #666;
+    border-right: 2px solid #666;
+  }
+
+  &:hover::after {
+    border-color: #333;
+  }
 `
 
 const Card = styled.div`
@@ -119,6 +158,8 @@ const App = () => (
           }
         ]}
         mobileBreakpoint={670}
+        arrowRight={<ArrowBtn type="right" />}
+        arrowLeft={<ArrowBtn type="left" />}
       >
         {[...Array(8)].map((_, i) => (
           <Carousel.Item key={i}>
@@ -151,6 +192,8 @@ const App = () => (
     }
   ]}
   mobileBreakpoint={670}
+  arrowRight={<ArrowBtn type="right" />}
+  arrowLeft={<ArrowBtn type="left" />}
 >
   {[...Array(8)].map((_, i) => (
     <Carousel.Item key={i}>
