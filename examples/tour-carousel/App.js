@@ -17,6 +17,25 @@ const Row = styled.div`
   margin: 50px auto;
 `
 
+const ArrowBtn = styled.span`
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: ${({ type }) => (type === 'right' ? '8px' : 'unset')};
+  left: ${({ type }) => (type === 'left' ? '8px' : 'unset')};
+  transform: ${({ type }) =>
+    `translateY(-50%) rotate(${type === 'right' ? '45deg' : '-135deg'})`};
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  border-top: 2px solid #888;
+  border-right: 2px solid #888;
+
+  &:hover {
+    border-color: #333;
+  }
+`
+
 const City = styled.div`
   background-image: ${({ img }) => `url(${img})`};
   background-size: cover;
@@ -81,7 +100,13 @@ const App = () => (
       >
         TOP DESTINATIONS
       </h1>
-      <Carousel cols={4} rows={2} gap={6}>
+      <Carousel
+        cols={4}
+        rows={2}
+        gap={6}
+        arrowLeft={<ArrowBtn type="left" />}
+        arrowRight={<ArrowBtn type="right" />}
+      >
         {cities.map((city, i) => (
           <Carousel.Item key={i}>
             <City img={city.img}>{city.name}</City>
@@ -89,7 +114,13 @@ const App = () => (
         ))}
       </Carousel>
     </Row>
-    <Code>{`<Carousel cols={4} rows={2} gap={6}>
+    <Code>{`<Carousel
+  cols={4}
+  rows={2}
+  gap={6}
+  arrowLeft={<ArrowBtn type="left" />}
+  arrowRight={<ArrowBtn type="right" />}
+>
   {cities.map((city, i) => (
     <Carousel.Item key={i}>
       <City img={city.img}>{city.name}</City>
