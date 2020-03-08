@@ -1,13 +1,21 @@
 {
   "name": "react-grid-carousel",
   "version": "0.2.9",
-  "description": "Flexible carousel layout w/ css grid to easily create a carousel",
+  "description": "React resposive carousel component w/ grid layout",
   "homepage": "https://react-grid-carousel.now.sh/",
   "keywords": [
     "react",
     "carousel",
+    "slider",
+    "gallery",
+    "image",
     "grid",
-    "rwd"
+    "responsive",
+    "react-component",
+    "react-carousel",
+    "react-slider",
+    "react-image",
+    "react-grid"
   ],
   "repository": {
     "url": "git@github.com:x3388638/react-grid-carousel.git",
