@@ -1,5 +1,5 @@
 [![NPM](https://nodei.co/npm/react-grid-carousel.png?compact=true)](https://nodei.co/npm/react-grid-carousel/)  
-[![GitHub license](https://img.shields.io/github/license/x3388638/react-grid-carousel)](https://github.com/x3388638/react-grid-carousel/blob/master/LICENSE) [![npm version](https://badge.fury.io/js/react-grid-carousel.svg)](https://badge.fury.io/js/react-grid-carousel) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
+[![GitHub license](https://img.shields.io/github/license/x3388638/react-grid-carousel)](https://github.com/x3388638/react-grid-carousel/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-grid-carousel)](https://www.npmjs.com/package/react-grid-carousel) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 
 <h1 align="center">React Grid Carousel</h1>
 <p align="center">React resposive carousel component w/ grid layout <br />to easily create a carousel like photo gallery, shopping product card or anything you want</p>
