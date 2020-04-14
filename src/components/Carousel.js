@@ -32,10 +32,10 @@ const Rail = styled.div`
   display: grid;
   grid-column-gap: ${({ gap }) => `${gap}px`};
   position: relative;
-  transition: left 0.5s cubic-bezier(0.2, 1, 0.3, 1) 0s;
+  transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1) 0s;
   grid-template-columns: ${({ page }) => `repeat(${page}, 100%)`};
-  left: ${({ currentPage, gap }) =>
-    `calc(${-100 * currentPage}% - ${gap * currentPage}px)`};
+  transform: ${({ currentPage, gap }) =>
+    `translateX(calc(${-100 * currentPage}% - ${gap * currentPage}px))`};
 
   @media screen and (max-width: ${({ mobileBreakpoint }) =>
       mobileBreakpoint}px) {
@@ -43,7 +43,7 @@ const Rail = styled.div`
     grid-template-columns: ${({ page }) => `repeat(${page}, 90%)`};
     grid-column-gap: ${({ cols, rows, gap }) =>
       `calc(${(cols * rows - 1) * 90}% + ${cols * rows * gap}px)`};
-    left: 0;
+    transform: translateX(0);
   }
 `
 
