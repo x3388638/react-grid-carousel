@@ -2,7 +2,7 @@
 [![GitHub license](https://img.shields.io/github/license/x3388638/react-grid-carousel)](https://github.com/x3388638/react-grid-carousel/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-grid-carousel)](https://www.npmjs.com/package/react-grid-carousel) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 
 <h1 align="center">React Grid Carousel</h1>
-<p align="center">React resposive carousel component w/ grid layout <br />to easily create a carousel like photo gallery, shopping product card or anything you want</p>
+<p align="center">React responsive carousel component w/ grid layout <br />to easily create a carousel like photo gallery, shopping product card or anything you want</p>
 
 <p align="center">
 <img src="https://gist.githubusercontent.com/x3388638/82e341b43990c7851c9438dfdec43e3b/raw/69d266ba9f7140994eefb5bb9623d7bd339a12ae/demo2.gif" width="400px" />
