@@ -26,6 +26,20 @@ export const SingleColumn = () => {
   )
 }
 
+export const SingleColumnWithOnPageChangedCallback = () => {
+  const onPageChanged = currentPage => console.log(currentPage)
+
+  return (
+    <Carousel cols={1} rows={1} onPageChanged={onPageChanged}>
+      {[...Array(5)].map((_, i) => (
+        <Carousel.Item key={i}>
+          <Item img={randomImageUrl + i} />
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  )
+}
+
 export const MultiColumns = () => {
   return (
     <Carousel cols={3} rows={1}>

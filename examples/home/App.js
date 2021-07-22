@@ -60,6 +60,21 @@ const App = () => {
           </Carousel.Item>
         ))}
       </Carousel>
+      <h4 className="thin">Single column with onPageChanged callback</h4>
+      <Carousel
+        showDots
+        containerStyle={{ maxWidth: '500px' }}
+        onPageChanged={currentPage => console.log(currentPage)}
+      >
+        {[...Array(4)].map((_, i) => (
+          <Carousel.Item key={i}>
+            <img
+              width="100%"
+              src={randomImgUrl.replace('{x}', 400).replace('{y}', 280) + i}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
       <h4 className="thin">Multiple columns</h4>
       <Carousel showDots cols={5}>
         {[...Array(15)].map((_, i) => (
