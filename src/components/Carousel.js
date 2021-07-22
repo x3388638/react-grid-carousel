@@ -106,7 +106,8 @@ const Carousel = ({
   dot,
   containerClassName = '',
   containerStyle = {},
-  children
+  children,
+  onPageChanged
 }) => {
   const [currentPage, setCurrentPage] = useState(0)
   const [isHover, setIsHover] = useState(false)
@@ -126,6 +127,10 @@ const Carousel = ({
   useEffect(() => {
     smoothscroll.polyfill()
   }, [])
+
+  useEffect(() => {
+    onPageChanged && onPageChanged(currentPage)
+  }, [currentPage])
 
   useEffect(() => {
     const { cols, rows, gap, loop, autoplay } = breakpointSetting || {}
@@ -436,7 +441,8 @@ Carousel.propTypes = {
     PropTypes.elementType
   ]),
   containerClassName: PropTypes.string,
-  containerStyle: PropTypes.object
+  containerStyle: PropTypes.object,
+  onPageChanged: PropTypes.func
 }
 
 Carousel.Item = ({ children }) => children

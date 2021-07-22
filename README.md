@@ -25,6 +25,7 @@
 - Customized arrow button
 - Customized dots
 - Support SSR
+- Add custom callback for page changement
 
 ## Install
 
@@ -82,6 +83,7 @@ const Gallery = () => {
 | arrowRight                            | Element          |           | Customized left arrow button                                                        |
 | [dot](#dot)                           | Element          |           | Customized dot component with prop `isActive`                                       |
 | containerStyle                        | Object           |           | Style object for carousel container                                                 |
+| onPageChanged                         | Function         |           | Callback triggered for page changement                                              |
 
 ### responsiveLayout
 
