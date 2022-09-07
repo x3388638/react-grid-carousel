@@ -18,7 +18,7 @@
     "react-grid"
   ],
   "repository": {
-    "url": "git@github.com:x3388638/react-grid-carousel.git",
+    "url": "git@github.com:rblue36/react-grid-carousel.git",
     "type": "git"
   },
   "main": "dist/bundle.js",
