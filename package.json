@@ -18,7 +18,7 @@
     "react-grid"
   ],
   "repository": {
-    "url": "git@github.com:x3388638/react-grid-carousel.git",
+    "url": "git@github.com:rblue36/react-grid-carousel.git",
     "type": "git"
   },
   "main": "dist/bundle.js",
@@ -63,7 +63,7 @@
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "rollup": "^1.29.1",
+    "rollup": "^2.79.0",
     "rollup-plugin-babel": "^4.3.3",
     "stylelint": "^13.2.0",
     "stylelint-config-prettier": "^8.0.1",
